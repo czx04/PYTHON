@@ -1,11 +1,14 @@
 import dash
-from altair.examples.pyramid import color
+import os
 from dash import dcc, html
 import dash_bootstrap_components as dbc
-from dash.dependencies import Input, Output
-import plotly.graph_objs as go
-from pydeck.bindings.map_styles import styles
-from skimage.color.rgb_colors import white
+from dotenv import load_dotenv
+
+# load enviroment
+load_dotenv()
+
+#get variable
+
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 
@@ -203,14 +206,14 @@ html.Div(
     }
 )
 
-addlayout = html.Div(
+layout2 = html.Div(
 
 )
 
 
 
 #all layout
-app.layout = html.Div(children=[main_layout, addlayout])
+app.layout = html.Div(children=[main_layout, layout2])
 # Run app
 if __name__ == "__main__":
     app.run_server(debug=True)
