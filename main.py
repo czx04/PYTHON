@@ -109,7 +109,6 @@ main_layout = html.Div(
                     ],
                     style={
                         "width": "22%",
-
                     }
                 ),
 html.Div(
@@ -134,7 +133,6 @@ html.Div(
                     ],
                     style={
                         "width": "22%",
-
                     }
                 ),
 html.Div(
@@ -195,7 +193,6 @@ html.Div(
                 "justifyContent": "space-between",
             }
         ),
-
     ],
     style={
         "width": "100%",
@@ -207,13 +204,68 @@ html.Div(
 )
 
 layout2 = html.Div(
+    className="two",
+    children=[
+        html.Div(
+            className="over-view",
+            children=[],
+            style={
+                "width": "60%",
+                "height": "500px",
+                "border": "0.1px solid #1e1e1e",
+            }
+        ),
+html.Div(
+            className="over-view",
+            children=[],
+            style={
+                "width": "36%",
+                "height": "500px",
+                "border": "0.1px solid #1e1e1e",
+            }
+        )
+    ],
+    style={
+        "width": "85%",
+        "display": "flex",
+        "flex-direction": "row",
+        "alignItems": "center",
+        "gap": "3.4%",
+        "justifyContent": "space-between",
+    }
+)
 
+layout3 = html.Div(
+    className="three",
+    children=[],
+    style={
+        "width": "85%",
+        "display": "flex",
+        "height": "500px",
+        "border": "0.1px solid #1e1e1e",
+    }
+)
+
+layout4 = html.Div(
+    className="three",
+    children=[],
+    style={
+        "width": "85%",
+        "display": "flex",
+        "height": "5000px",
+    }
 )
 
 
-
 #all layout
-app.layout = html.Div(children=[main_layout, layout2])
+app.layout = html.Div(children=[main_layout, layout2,layout3,layout2,layout3,layout4],
+                      style={
+                          "width": "100%",
+                          "display": "flex",
+                          "flex-direction": "column",
+                          "alignItems": "center",
+                          "gap": "30px",
+                      })
 # Run app
 if __name__ == "__main__":
     app.run_server(debug=True)
