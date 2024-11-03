@@ -256,7 +256,7 @@ layout4 = html.Div(
     }
 )
 
-@app.callback(game 1)
+# @app.callback(game 1)
 
 
 #all layout

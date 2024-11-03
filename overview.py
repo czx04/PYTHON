@@ -4,6 +4,8 @@ from dash.dependencies import Input, Output
 import pandas as pd
 import random
 from game_layout import showgame
+from dash import callback, Output, Input
+
 
 # Khởi tạo ứng dụng Dash
 app = dash.Dash(__name__)
@@ -14,7 +16,16 @@ user_counts = 1500
 total_games = 24
 total_dau = 4080901
 average_playtime = 42736
+games = ["Valorant", "game 2","game 3","game 4","game 5", "game 6","game 7","game 8","game 9"] # Assuming 'games' is your array of game names
 
+## một số hàm
+# Hàm để chuyển đổi tên trò chơi sang định dạng không dấu và viết liền
+def format_game_name(name):
+    return name.replace(" ", "").lower()
+
+
+
+#UI
 navbar = html.Div(
     className="navbar",
     children=[
@@ -183,22 +194,76 @@ html.Div(
     }
 )
 
+def getsource(game):
+    return f"./assets/IMG/{format_game_name(game)}.svg"
+#define game button
+game_buttons = []
+for game in games:
+    chilren_button = [
+        html.Div(
+            children=[
+                html.Div(
+                    children=[
+                        html.P(f"{game}", style={}),
+                        html.Img(
+                            src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/android-icon.png",
+                            alt="GitHub",
+                            width="32",
+                            height="32",
+                            style={"cursor": "pointer"},  # Moved cursor styling here
+                        )
+                    ],
+                    style={
+                        'display': 'flex',
+                        'align-items': 'baseline',
+                        'justifyContent': 'space-between',
+                        # 'padding-left': '20px',
+                        'width': '100%',
+                    }
+                ),
+                html.Img(
+                    src=f"{getsource(game)}",
+                    width="52px",
+                    height="52px",
+                    style={"cursor": "pointer",},
+
+                )
+
+            ],
+            style={
+                'width': '100%',
+            }
+        )
+    ]
+    game_buttons.append(
+        html.Button(
+            id=f"button-{game}",
+            children=chilren_button,
+            style={'margin': '10px', 'cursor': 'pointer', 'width': '300px', 'height': '100px'}
+        )
+    )
+
+
+
+
 all_game = html.Div([
     dcc.Location(id='url', refresh=False),  # Theo dõi URL
-    html.Div([
-        dcc.Link('Game 1', href='/game1', style={'margin': '10px'}),
-        dcc.Link('Game 2', href='/game2', style={'margin': '10px'}),
-    ], style={'display': 'flex', 'justify-content': 'center'}),
+    html.Div(game_buttons, style={'display': 'grid','grid-template-columns':'auto auto auto','gap':'10px 32px', 'justify-content': 'center','padding-top':'40px'}),
     html.Div(id='page-content')  # Nội dung của trang sẽ được hiển thị ở đây
 ])
 
-@app.callback(Output('page-content', 'children'),
-              Input('url', 'pathname'))
-def display_page(pathname):
-    if pathname == '/game1':
-        return showgame("game 1")
-    elif pathname == '/game2':
-        return showgame("game 2")
+@app.callback(
+    Output('page-content', 'children'),
+    [Input(f"button-{game}", 'n_clicks') for game in games]
+)
+def display_page(*args):
+    ctx = dash.callback_context
+    if not ctx.triggered:
+        return ""
+
+    button_id = ctx.triggered[0]['prop_id'].split('.')[0]
+    game_name = button_id.split('-')[1].replace("-", " ")  # Lấy tên trò chơi từ id
+    return showgame(game_name)
 
 # define layout
 app.layout = html.Div(
@@ -211,5 +276,4 @@ app.layout = html.Div(
 )
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port=1080)  # Thay đổi port thành 8080
-
+    app.run_server(debug=True, port=1090)  # Thay đổi port thành 8080

@@ -1,6 +1,7 @@
 # game_layout.py
 from dash import html
 
+
 def showgame(game_name):
     return html.Div(
         children=[
