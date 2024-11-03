@@ -20,7 +20,6 @@ days_count = (end_date - start_date).days + 1
 access_collection = db["truycap"]
 
 
-# Hàm tạo thời gian ngẫu nhiên trong ngày
 def generate_random_start_end_times(base_date):
     start_time = base_date + timedelta(hours=random.randint(0, 23), minutes=random.randint(0, 59),
                                        seconds=random.randint(0, 59))
@@ -28,7 +27,6 @@ def generate_random_start_end_times(base_date):
     return start_time.isoformat(), end_time.isoformat()
 
 
-# Tạo dữ liệu truy cập
 for day in range(days_count):
     current_date = start_date + timedelta(days=day)
     daily_access_count = random.randint(6000, 10000)  # Số lượt truy cập ngẫu nhiên từ 6000 đến 10000
