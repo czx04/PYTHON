@@ -256,8 +256,6 @@ layout4 = html.Div(
     }
 )
 
-@app.callback(game 1)
-
 
 #all layout
 app.layout = html.Div(children=[main_layout, layout2,layout3,layout2,layout3,layout4],
