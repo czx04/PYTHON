@@ -1,5 +1,5 @@
 import dash
-from dash import dcc, html, dash_table
+from dash import dcc, html
 from dash.dependencies import Input, Output
 
 from game_layout import showgame
@@ -13,13 +13,13 @@ user_counts = 1500
 total_games = 24
 total_dau = 4080901
 average_playtime = 42736
-games = ["Valorant", "game 2","game 3","game 4","game 5","game 6"]
+games = ["Valorant", "game 2", "game 3", "game 4", "game 5", "game 6"]
 
-#UI
+# UI
 navbar = html.Div(
     className="navbar",
     children=[
-        html.H1("Streaming Dashboard Game", style={"color": "white", "margin": 0, "padding-left": "30px"}),
+        html.H1("Streaming Dashboard Game", style={"color": "#777777", "margin": 0, "padding-left": "30px"}),
         html.Div(
             className="navbar-icons",
             children=[
@@ -36,6 +36,7 @@ navbar = html.Div(
                     className="info-icon",
                     width="24",
                     height="24",
+                    style={"color": "#777777"},
                 ),
             ],
             style={"display": "flex", "justify-content": "center", "align-items": "center", "gap": "10px",
@@ -47,7 +48,7 @@ navbar = html.Div(
         "flex-direction": "row",
         "justifyContent": "space-between",
         "alignItems": "center",
-        "backgroundColor": "#1e1e1e",
+        "backgroundColor": "#f4f3ee",
         "width": "100%",
         "padding": "20px 0",
     }
@@ -56,141 +57,363 @@ from1 = html.Div(
     className="data-from",
     children=[
         html.P("Data for this app is pulled from the FK company API. Updated 2024-10-18",
-               style={"textAlign": "right", "padding-right": "40px", "padding-left": "100px"}, )
+               style={"textAlign": "right", "padding-right": "40px", "padding-left": "100px", "color": "#777777"}, )
     ],
     style={
         "width": "100%",
         "padding-bottom": "25px",
-    }
-)
-overViewtotalUser = html.Div(
-    className="overview-totaluser",
-    children=[
-        html.Div(
-            className="view_cont",
-            children=[
-                html.P(f"{user_counts}", style={
-                            "textAlign": "left",
-                            "font-family": "Roboto",
-                            "font-weight": "700",
-                            "font-size": "38px",
-                            "margin-top": "8px",
-                            "margin-bottom": "8px",
-                            "margin-left": "20px"
-                }),
-                html.P("TOTAL USERS", style={
-                            "textAlign": "left",
-                            "font-family": "Roboto",
-                            "font-size": "14px",
-                            "font-weight": "700",
-                            "margin-bottom": "8px",
-                            "margin-left": "20px"
-                })
-            ],
-            style={
-                "width": "20%",
-                "height": "100px",
-                "border": "1px solid black",
-                "background-color": "#fff",
-            }
-        ),
-html.Div(
-            className="view_cont",
-            children=[
-                html.P(f"{total_games}", style={
-                            "textAlign": "left",
-                            "font-family": "Roboto",
-                            "font-weight": "700",
-                            "font-size": "38px",
-                            "margin-top": "8px",
-                            "margin-bottom": "8px",
-                            "margin-left": "20px"
-                }),
-                html.P("TOTAL GAMES", style={
-                            "textAlign": "left",
-                            "font-family": "Roboto",
-                            "font-size": "14px",
-                            "font-weight": "700",
-                            "margin-bottom": "8px",
-                            "margin-left": "20px"
-                })
-            ],
-            style={
-                "width": "20%",
-                "height": "100px",
-                "border": "1px solid black",
-"background-color": "#fff",
-            }
-        ),
-html.Div(
-            className="view_cont",
-            children=[
-                html.P(f"{total_dau}", style={
-                            "textAlign": "left",
-                            "font-family": "Roboto",
-                            "font-weight": "700",
-                            "font-size": "38px",
-                            "margin-top": "8px",
-                            "margin-bottom": "8px",
-                            "margin-left": "20px"
-                }),
-                html.P("TOTAL DAU", style={
-                            "textAlign": "left",
-                            "font-family": "Roboto",
-                            "font-size": "14px",
-                            "font-weight": "700",
-                            "margin-bottom": "8px",
-                            "margin-left": "20px"
-                })
-            ],
-            style={
-                "width": "20%",
-                "height": "100px",
-                "border": "1px solid black",
-"background-color": "#fff",
-            }
-        ),
-html.Div(
-            className="view_cont",
-            children=[
-                html.P(f"{average_playtime}", style={
-                            "textAlign": "left",
-                            "font-family": "Roboto",
-                            "font-weight": "700",
-                            "font-size": "38px",
-                            "margin-top": "8px",
-                            "margin-bottom": "8px",
-                            "margin-left": "20px"
-                }),
-                html.P("AVERAGE PLAYTIME", style={
-                            "textAlign": "left",
-                            "font-family": "Roboto",
-                            "font-size": "14px",
-                            "font-weight": "700",
-                            "margin-bottom": "8px",
-                            "margin-left": "20px"
-                })
-            ],
-            style={
-                "width": "20%",
-                "height": "100px",
-                "border": "1px solid black",
-                "background-color": "#fff",
-            }
-        ),
-    ],
-    style={
-        "display": "flex",
-        "flex-direction": "row",
-        "justifyContent": "space-between",
-        "width": "81%",
+        "border-top": "1px solid #777777",
     }
 )
 
+overViewtotal = html.Div(
+    className="overview-total",
+    children=[
+        html.Div(
+            className="ot",
+            children=[
+                html.Div(
+                    className="ot_nav",
+                    children=[
+                        html.Img(
+                            src="./assets/IMG/server-svgrepo-com.svg",
+                            alt="Server SVG",
+                            width="60",
+                            height="60",
+                            style={"padding-top": "10px",
+                                   "padding-right": "10px", },
+                        ),
+                        html.Div(
+                            className="ot",
+                            children=[
+                                html.P(
+                                    f"Total user",
+                                    style={
+                                        "font-size": "20px",
+                                        "margin-top": "5px",
+                                        "margin-bottom": "10px",
+                                        "font-color": "#3a3937",
+                                    },
+                                ),
+                                html.P(
+                                    f"{user_counts}",
+                                    style={
+                                        "font-color": "#000",
+                                        "font-size": "32px",
+                                        "margin": "0px",
+                                        "padding-left": "10px",
+                                    },
+                                )
+                            ],
+                            style={
+                            }
+                        )
+                    ],
+                    style={
+                        "display": "flex",
+                        # "alignItems": "center",
+                        "justifyContent": "space-around",
+                        "border-bottom": "1px solid #f8f4ef",
+                    }
+                ),
+                html.Div(
+                    className="ot_footer",
+                    children=[
+                        html.Img(
+                            src="./assets/IMG/copy_img.svg",
+                            alt="Copy Image",
+                            width="26",
+                            height="26",
+                            style={"cursor": "pointer"},
+                        ),
+                        html.Img(
+                            src="./assets/IMG/question.svg",
+                            alt="Copy Image",
+                            width="26",
+                            height="26",
+                            style={"cursor": "pointer", "opacity": "0.3"},
+                        )
+
+                    ],
+                    style={
+                        "display": "flex",
+                        "flex-direction": "row",
+                        "justifyContent": "space-between",
+                        "alignItems": "center",
+                        "margin": "10px 20px",
+                    }
+                )
+            ],
+            style={
+                "height": "120px",
+                "width": "255px",
+                "backgroundColor": "#ffffff",
+            }
+
+        ),
+html.Div(
+            className="ot",
+            children=[
+                html.Div(
+                    className="ot_nav",
+                    children=[
+                        html.Img(
+                            src="./assets/IMG/server-svgrepo-com.svg",
+                            alt="Server SVG",
+                            width="60",
+                            height="60",
+                            style={"padding-top": "10px",
+                                   "padding-right": "10px", },
+                        ),
+                        html.Div(
+                            className="ot",
+                            children=[
+                                html.P(
+                                    f"Total user",
+                                    style={
+                                        "font-size": "20px",
+                                        "margin-top": "5px",
+                                        "margin-bottom": "10px",
+                                        "font-color": "#3a3937",
+                                    },
+                                ),
+                                html.P(
+                                    f"{user_counts}",
+                                    style={
+                                        "font-color": "#000",
+                                        "font-size": "32px",
+                                        "margin": "0px",
+                                        "padding-left": "10px",
+                                    },
+                                )
+                            ],
+                            style={
+                            }
+                        )
+                    ],
+                    style={
+                        "display": "flex",
+                        # "alignItems": "center",
+                        "justifyContent": "space-around",
+                        "border-bottom": "1px solid #f8f4ef",
+                    }
+                ),
+                html.Div(
+                    className="ot_footer",
+                    children=[
+                        html.Img(
+                            src="./assets/IMG/copy_img.svg",
+                            alt="Copy Image",
+                            width="26",
+                            height="26",
+                            style={"cursor": "pointer"},
+                        ),
+                        html.Img(
+                            src="./assets/IMG/question.svg",
+                            alt="Copy Image",
+                            width="26",
+                            height="26",
+                            style={"cursor": "pointer", "opacity": "0.3"},
+                        )
+
+                    ],
+                    style={
+                        "display": "flex",
+                        "flex-direction": "row",
+                        "justifyContent": "space-between",
+                        "alignItems": "center",
+                        "margin": "10px 20px",
+                    }
+                )
+            ],
+            style={
+                "height": "120px",
+                "width": "255px",
+                "backgroundColor": "#ffffff",
+            }
+
+        ),
+html.Div(
+            className="ot",
+            children=[
+                html.Div(
+                    className="ot_nav",
+                    children=[
+                        html.Img(
+                            src="./assets/IMG/server-svgrepo-com.svg",
+                            alt="Server SVG",
+                            width="60",
+                            height="60",
+                            style={"padding-top": "10px",
+                                   "padding-right": "10px", },
+                        ),
+                        html.Div(
+                            className="ot",
+                            children=[
+                                html.P(
+                                    f"Total user",
+                                    style={
+                                        "font-size": "20px",
+                                        "margin-top": "5px",
+                                        "margin-bottom": "10px",
+                                        "font-color": "#3a3937",
+                                    },
+                                ),
+                                html.P(
+                                    f"{user_counts}",
+                                    style={
+                                        "font-color": "#000",
+                                        "font-size": "32px",
+                                        "margin": "0px",
+                                        "padding-left": "10px",
+                                    },
+                                )
+                            ],
+                            style={
+                            }
+                        )
+                    ],
+                    style={
+                        "display": "flex",
+                        # "alignItems": "center",
+                        "justifyContent": "space-around",
+                        "border-bottom": "1px solid #f8f4ef",
+                    }
+                ),
+                html.Div(
+                    className="ot_footer",
+                    children=[
+                        html.Img(
+                            src="./assets/IMG/copy_img.svg",
+                            alt="Copy Image",
+                            width="26",
+                            height="26",
+                            style={"cursor": "pointer"},
+                        ),
+                        html.Img(
+                            src="./assets/IMG/question.svg",
+                            alt="Copy Image",
+                            width="26",
+                            height="26",
+                            style={"cursor": "pointer", "opacity": "0.3"},
+                        )
+
+                    ],
+                    style={
+                        "display": "flex",
+                        "flex-direction": "row",
+                        "justifyContent": "space-between",
+                        "alignItems": "center",
+                        "margin": "10px 20px",
+                    }
+                )
+            ],
+            style={
+                "height": "120px",
+                "width": "255px",
+                "backgroundColor": "#ffffff",
+            }
+
+        ),
+html.Div(
+            className="ot",
+            children=[
+                html.Div(
+                    className="ot_nav",
+                    children=[
+                        html.Img(
+                            src="./assets/IMG/server-svgrepo-com.svg",
+                            alt="Server SVG",
+                            width="60",
+                            height="60",
+                            style={"padding-top": "10px",
+                                   "padding-right": "10px", },
+                        ),
+                        html.Div(
+                            className="ot",
+                            children=[
+                                html.P(
+                                    f"Total user",
+                                    style={
+                                        "font-size": "20px",
+                                        "margin-top": "5px",
+                                        "margin-bottom": "10px",
+                                        "font-color": "#3a3937",
+                                    },
+                                ),
+                                html.P(
+                                    f"{user_counts}",
+                                    style={
+                                        "font-color": "#000",
+                                        "font-size": "32px",
+                                        "margin": "0px",
+                                        "padding-left": "10px",
+                                    },
+                                )
+                            ],
+                            style={
+                            }
+                        )
+                    ],
+                    style={
+                        "display": "flex",
+                        # "alignItems": "center",
+                        "justifyContent": "space-around",
+                        "border-bottom": "1px solid #f8f4ef",
+                    }
+                ),
+                html.Div(
+                    className="ot_footer",
+                    children=[
+                        html.Img(
+                            src="./assets/IMG/copy_img.svg",
+                            alt="Copy Image",
+                            width="26",
+                            height="26",
+                            style={"cursor": "pointer"},
+                        ),
+                        html.Img(
+                            src="./assets/IMG/question.svg",
+                            alt="Copy Image",
+                            width="26",
+                            height="26",
+                            style={"cursor": "pointer", "opacity": "0.3"},
+                        )
+
+                    ],
+                    style={
+                        "display": "flex",
+                        "flex-direction": "row",
+                        "justifyContent": "space-between",
+                        "alignItems": "center",
+                        "margin": "10px 20px",
+                    }
+                )
+            ],
+            style={
+                "height": "120px",
+                "width": "255px",
+                "backgroundColor": "#ffffff",
+            }
+
+        )
+    ],
+    style={
+        "width": "100%",
+        "display": "flex",
+        "justifyContent": "space-around",
+    }
+)
+
+
 def format_game_path(name):
     return name.replace(" ", "").lower()
+
+
 def get_source_img(game):
     return f"./assets/IMG/{format_game_path(game)}.svg"
+
+
 game_btn = []
 
 for game in games:
@@ -238,27 +461,27 @@ for game in games:
     )
 
 game_list = html.Div(
-            children= game_btn,
-            style = {
-                "width": "81%",
-                "display": "grid",
-                "grid-template-columns": "auto auto auto",
-                "align-items": "center",
-                "justifyContent": "space-between",
-            }
-        )
+    children=game_btn,
+    style={
+        "width": "81%",
+        "display": "grid",
+        "grid-template-columns": "auto auto auto",
+        "align-items": "center",
+        "justifyContent": "space-between",
+    }
+)
 
 homepage_layout = html.Div(
     style={
         "display": "flex",
         "flex-direction": "column",
         "alignItems": "center",
-        "background-color": "#f3f4f8",
+        "background-color": "#f4f3ee",
     },
     children=[
         navbar,
         from1,
-        overViewtotalUser,
+        overViewtotal,
         game_list
     ],
 
@@ -270,6 +493,8 @@ app.layout = html.Div(
         html.Div(id="page-content", children=homepage_layout)
     ]
 )
+
+
 @app.callback(
     Output("page-content", "children"),
     Input("url", "pathname"),
@@ -279,6 +504,7 @@ def display_page(pathname):
         return homepage_layout
     else:
         return showgame(pathname)
+
 
 if __name__ == '__main__':
     app.run_server(debug=True, port=3040)
