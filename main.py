@@ -14,11 +14,10 @@ user_counts = 1500
 total_games = 24
 total_dau = 4080901
 average_playtime = 42736
-games = ["Valorant", "game 2", "game 3", "game 4", "game 5", "game 6"]
-
 datagame = [
     {
-        "game": "valorant",
+        "game": "Valorant",
+        "platform":["android","ios","macos"],
         "user_up": {
             "january": "2400",
             "february": "3400",
@@ -36,6 +35,7 @@ datagame = [
     },
     {
         "game": "game 2",
+        "platform":["android","windows"],
         "user_up": {
             "january": "2700",
             "february": "3300",
@@ -53,6 +53,7 @@ datagame = [
     },
     {
         "game": "game 3",
+"platform":["android","ios"],
         "user_up": {
             "january": "3623",
             "february": "1071",
@@ -70,6 +71,7 @@ datagame = [
     },
     {
         "game": "game 4",
+"platform":["macos","ios"],
         "user_up": {
             "january": "3886",
             "february": "6660",
@@ -87,6 +89,7 @@ datagame = [
     },
     {
         "game": "game 5",
+"platform":["android","ios"],
         "user_up": {
             "january": "3783",
             "february": "2225",
@@ -104,6 +107,7 @@ datagame = [
     },
     {
         "game": "game 6",
+"platform":["android","ios"],
         "user_up": {
             "january": "1055",
             "february": "5511",
@@ -121,6 +125,7 @@ datagame = [
     },
     {
         "game": "game 7",
+"platform":["android","ios"],
         "user_up": {
             "january": "1080",
             "february": "5448",
@@ -138,6 +143,7 @@ datagame = [
     },
     {
         "game": "game 8",
+"platform":["android","ios"],
         "user_up": {
             "january": "1860",
             "february": "4354",
@@ -155,6 +161,7 @@ datagame = [
     },
     {
         "game": "game 9",
+"platform":["android","ios"],
         "user_up": {
             "january": "1360",
             "february": "1327",
@@ -250,7 +257,7 @@ overViewtotal = html.Div(
                                     style={
                                         "font-size": "20px",
                                         "margin-top": "5px",
-                                        "margin-bottom": "10px",
+                                        "margin-bottom": "5px",
                                         "font-color": "#3a3937",
                                     },
                                 ),
@@ -332,7 +339,7 @@ overViewtotal = html.Div(
                                     style={
                                         "font-size": "20px",
                                         "margin-top": "5px",
-                                        "margin-bottom": "10px",
+                                        "margin-bottom": "5px",
                                         "font-color": "#3a3937",
                                     },
                                 ),
@@ -414,7 +421,7 @@ overViewtotal = html.Div(
                                     style={
                                         "font-size": "20px",
                                         "margin-top": "5px",
-                                        "margin-bottom": "10px",
+                                        "margin-bottom": "5px",
                                         "font-color": "#3a3937",
                                     },
                                 ),
@@ -496,7 +503,7 @@ overViewtotal = html.Div(
                                     style={
                                         "font-size": "20px",
                                         "margin-top": "5px",
-                                        "margin-bottom": "10px",
+                                        "margin-bottom": "5px",
                                         "font-color": "#3a3937",
                                     },
                                 ),
@@ -565,7 +572,7 @@ overViewtotal = html.Div(
 )
 
 # define variable for chart overview
-gamess = [game["game"] for game in datagame]
+games = [game["game"] for game in datagame]
 total_userss = [sum(int(user) for user in game["user_up"].values()) for game in datagame]
 months = list(datagame[0]["user_up"].keys())
 games_data = []
@@ -588,7 +595,7 @@ chart = html.Div(
                     figure={
                         "data": [
                             go.Bar(
-                                x=gamess,
+                                x=games,
                                 y=total_userss,
                                 text=total_userss,
                                 textposition='auto',
@@ -661,6 +668,43 @@ def format_game_path(name):
 def get_source_img(game):
     return f"./assets/IMG/games/{format_game_path(game)}.svg"
 
+def get_platform_images(game_name):
+    # Find the game in the datagame list
+    platforms = []
+    for game in datagame:
+        if game["game"] == game_name:
+            platforms = game["platform"]
+            break
+
+    # Generate image elements for each platform
+    platform_images = []
+    for platform in platforms:
+        platform_images.append(
+            html.Img(
+                src=f"./assets/IMG/platforms/{platform}.svg",
+                alt=platform,
+                width="38",
+                height="38",
+                style={"cursor": "pointer", "margin-right": "5px"}
+            )
+        )
+    return platform_images
+
+
+
+game_f = html.Div(
+    className="game_f",
+    children=[
+        html.P("GAME LIST",style={"font-size": "25px"}),
+    ],
+    style={
+        "width": "100%",
+        "display": "flex",
+        "justifyContent": "start",
+        "margin-left": "10%",
+
+    }
+)
 
 game_btn = []
 for game in games:
@@ -672,20 +716,18 @@ for game in games:
                     children=[
                         html.Div(
                             children=[
-                                html.P(f"{game}", style={}),
-                                html.Img(
-                                    src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/android-icon.png",
-                                    alt="GitHub",
-                                    width="32",
-                                    height="32",
-                                    style={"cursor": "pointer"},
-                                )
+                                html.P(f"{game}", style={
+                                    'padding-right': '60px',
+                                    'padding-bottom': '5px',
+                                    'font-size': '20px',
+                                    'font-weight': 'bold',
+                                    'color': '#777777',
+                                }),
+                                *get_platform_images(game),
                             ],
                             style={
                                 'display': 'flex',
-                                'align-items': 'baseline',
                                 'justifyContent': 'space-between',
-                                # 'padding-left': '20px',
                                 'width': '100%',
                             }
                         ),
@@ -696,23 +738,34 @@ for game in games:
                             style={"cursor": "pointer", },
 
                         )
-
                     ],
                     style={
                         'width': '100%',
                     }
                 )
             ],
-            href=f"/{format_game_path(game)}"
+            href=f"/{format_game_path(game)}",
+            style = {
+                'textDecoration': 'none',  # Remove underline for link
+                ':hover': {
+                    'textDecoration': 'underline'  # Add underline on hover
+                },
+                ':visited': {
+                    'textDecoration': 'none'  # Ensure visited links have no underline
+                },
+                ':active': {
+                    'textDecoration': 'underline'  # Add underline on active
+                }
+            }
         )
     )
-
 game_list = html.Div(
     children=game_btn,
     style={
-        "width": "81%",
+        "width": "55%",
         "display": "grid",
         "grid-template-columns": "auto auto auto",
+        "row-gap": "50px",
         "align-items": "center",
         "justifyContent": "space-between",
     }
@@ -730,6 +783,7 @@ homepage_layout = html.Div(
         from1,
         overViewtotal,
         chart,
+game_f,
         game_list
     ],
 
