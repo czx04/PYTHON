@@ -6,11 +6,17 @@ from openpyxl.styles.builtins import title
 from PYTHON.data import datagame, months
 
 back_btn = html.Div(
-    style={"textAlign": "left"},
+    style={"textAlign": "left","display": "flex"},
     children=[
+        html.Div(
+            style={
+                "width": "25px",
+                "height": "1px",
+            }
+        ),
         dcc.Link([
             html.Img(
-                src="../assets/IMG/back_icon.png",
+                src="../assets/IMG/undo-white.svg",
                 alt="Info",
                 className="info-icon",
                 width="24",
@@ -31,35 +37,40 @@ def graph_nav(game_path):
         y=user_counts,
         mode='lines+markers',
         name=game_data["game"],
-        line=dict(color='white', shape='spline', smoothing=1.3),  # Đường vẽ màu trắng
-        fill='tonexty',  # Tạo vùng nền mờ dưới đường vẽ
-        fillcolor='rgba(255, 255, 255, 0.2)',  # Màu nền mờ (trắng, độ mờ 0.2)
+        line=dict(color='white', shape='spline', smoothing=1.3),
+        fill='tonexty',
+        fillcolor='rgba(255, 255, 255, 0.2)',
         marker=dict(size=8)
     )
     fig = go.Figure(data=[trace])
     fig.update_layout(
-        title={
-            'text': 'User Growth Over the Year',
-            'x': 0.06,
-            'xanchor': 'left',  # Cố định vị trí tiêu đề từ bên trái
-            'yanchor': 'top'  # Giữ tiêu đề nằm ở trên
-        },
-        paper_bgcolor='rgba(0,0,0,0)',  # Làm nền biểu đồ trong suốt để lộ gradient phía sau
-        plot_bgcolor='rgba(0,0,0,0)',  # Làm nền khu vực plot trong suốt
-        template='plotly_dark'
+        height=420,
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)',
+        template='plotly_dark',
+        xaxis=dict(
+            showgrid=False,
+            automargin=True,
+            range=[-0.2, len(months)-1]
+        )
     )
     return html.Div(
         className="graph-nav",
         children=[
             html.Div(
                 children=[
-                    dcc.Graph(figure=fig,config={"displayModeBar": False}),
+                    dcc.Graph(figure=fig,config={"displayModeBar": False},style={
+                            "height": "100%",
+                            "transform": "translateY(-10px)"
+                        }),
 
                 ],
-                style={"padding": "20px","background": "linear-gradient(to right, #0c2442, #2a5687)"}
+                style={"background": "linear-gradient(to right, #0c2442, #2a5687)","height": "365px"}
             )
         ],
-        style={},
+        style={
+
+        },
     )
 
 
@@ -68,7 +79,10 @@ navbar = html.Div(
     children=[
         back_btn
     ],
-    style={}
+    style={
+        "position": "absolute",
+        "zIndex": 10
+    }
 )
 
 
@@ -78,9 +92,15 @@ def showgame(game):
         className=f"{game}_div",
         children=[
             navbar,
-            graph_nav(games)
+            graph_nav(games),
+            html.Div(
+                style={
+                    "width": "25px",
+                    "height": "100px",
+                }
+            )
         ],
         style={
-
+            "background-color":"#f4f3ee"
         }
     )
