@@ -490,10 +490,10 @@ class chart_ctn1:
                 dcc.Graph(
                     figure=fig,
                     config={"displayModeBar": False},
-                    style={"width": "100%", "height": "100%"}  # Ensure the graph fills the container
+                    style={"width": "100%", "height": "100%"}
                 )
             ],
-            style={"width": "100%", "height": "100%"}  # Ensure container takes the full available space
+            style={"width": "100%", "height": "100%"}
         )
 
     def draw_chart(self, gamex):
@@ -560,8 +560,13 @@ class chart_ctn1:
             ],
             style={
                 "width": "27%",
-                "height": "670px",
+                "height": "100%",
                 "background-color": "#fff",
+                "padding": "10px",
+                "box-sizing": "border-box",
+                "display": "flex",
+                "flex-direction": "column",
+                "justify-content": "space-between"
             }
         )
         chart3 = html.Div(
@@ -585,21 +590,22 @@ class chart_ctn1:
                     ],
                     style={
                         "margin": "0px 30px",
+                        "width": "27%",
                         "marginTop": "25px",
                     }
                 ),
-                self.drchart3(gamex),  # Ensure this is aligned correctly
-                self.footer_chart3(gamex),  # Ensuring footer_chart3 fits within chart3
+                self.drchart3(gamex),
+                self.footer_chart3(gamex),
             ],
             style={
                 "width": "27%",
-                "height": "870px",
+                "height": "100%",
                 "background-color": "#fff",
-                "padding": "10px",  # Add padding for better spacing
-                "box-sizing": "border-box",  # Ensure padding does not exceed the container size
+                "padding": "10px",
+                "box-sizing": "border-box",
                 "display": "flex",
-                "flex-direction": "column",  # Use column direction for stacking
-                "justify-content": "space-between"  # Ensure space distribution
+                "flex-direction": "column",
+                "justify-content": "space-between"
             }
         )
 
@@ -619,15 +625,20 @@ class chart_ctn1:
         )
 
 
+# class chart_ctn2:
+
+
+
+
 def showgame(game_path):
-    game = game_path.split('/')[-1]  # Adjusted to safely extract the game name from the path
+    game = game_path.split('/')[-1]
     return html.Div(
         className=f"{game}_div",
         children=[
             navbar,
             graph_nav(game),
             cardbody(game),
-            chart_ctn1().draw_chart(game)  # Proper instantiation of class if not static
+            chart_ctn1().draw_chart(game)
         ],
         style={
             "background-color": "#f4f3ee",
