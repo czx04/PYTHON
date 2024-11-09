@@ -63,6 +63,7 @@ from1 = html.Div(
     }
 )
 
+
 #########################################################################################################
 # total overview
 overViewtotal = html.Div(
@@ -414,7 +415,6 @@ for game_info in datagame:
     user_counts = [int(game_info["user_up"][month]) for month in months]
     games_data.append({"game": game_name, "user_counts": user_counts})
 
-
 #################################################################################################################
 # chart overview
 chart = html.Div(
@@ -493,7 +493,6 @@ chart = html.Div(
         "overflow": "hidden",
     }
 )
-
 
 def format_game_path(name):
     return name.replace(" ", "").lower()

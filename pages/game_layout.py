@@ -5,6 +5,7 @@ from openpyxl.styles.builtins import title
 
 from PYTHON.data import datagame, months
 
+
 back_btn = html.Div(
     style={"textAlign": "left","display": "flex"},
     children=[
@@ -27,6 +28,16 @@ back_btn = html.Div(
     ],
 )
 
+navbar = html.Div(
+    className="navbar",
+    children=[
+        back_btn
+    ],
+    style={
+        "position": "absolute",
+        "zIndex": 10
+    }
+)
 
 def graph_nav(game_path):
     game_data = next((game for game in datagame if game["game"].lower().replace(" ","") == game_path), None)
@@ -73,16 +84,6 @@ def graph_nav(game_path):
         },
     )
 
-navbar = html.Div(
-    className="navbar",
-    children=[
-        back_btn
-    ],
-    style={
-        "position": "absolute",
-        "zIndex": 10
-    }
-)
 
 def cardbody(gamex):
     game_data = next((game for game in datagame if game["game"].lower().replace(" ", "") == gamex), None)
@@ -97,7 +98,7 @@ def cardbody(gamex):
                     html.Div(
                         children=[
                             html.Img(
-                                src="../assets/IMG/pages/users.svg",
+                                src="../assets/IMG/pages/message.svg",
                                 alt="uuser",
                                 height="48px",
                                 width="48px",
@@ -111,7 +112,43 @@ def cardbody(gamex):
                                 }
                             ),
                             html.H6(
-                                "USER",
+                                "Message",
+                                style={
+                                    "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                    "font-size": "16px",
+                                    "margin": "10px 0px",
+                                }
+                            )
+                        ],
+                        style={
+
+                        }
+                    ),
+                    html.Div(
+                        style={
+                            "width": "1px",
+                            "height": "60%",
+                            "background-color": "#000",
+                        }
+                    ),
+                    html.Div(
+                        children=[
+                            html.Img(
+                                src="../assets/IMG/pages/money.svg",
+                                alt="uuser",
+                                height="48px",
+                                width="48px",
+                            ),
+                            html.H3(
+                                f"$ {total_users}",
+                                style={
+                                    "font-size": "24px",
+                                    "margin": "10px 0px",
+                                    "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                }
+                            ),
+                            html.H6(
+                                "Today Revenue",
                                 style={
                                     "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
                                     "font-size": "16px",
@@ -147,7 +184,7 @@ def cardbody(gamex):
                                 }
                             ),
                             html.H6(
-                                "USER",
+                                "User",
                                 style={
                                     "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
                                     "font-size": "16px",
@@ -169,7 +206,7 @@ def cardbody(gamex):
                     html.Div(
                         children=[
                             html.Img(
-                                src="../assets/IMG/pages/users.svg",
+                                src="../assets/IMG/pages/request.svg",
                                 alt="uuser",
                                 height="48px",
                                 width="48px",
@@ -183,43 +220,7 @@ def cardbody(gamex):
                                 }
                             ),
                             html.H6(
-                                "USER",
-                                style={
-                                    "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
-                                    "font-size": "16px",
-                                    "margin": "10px 0px",
-                                }
-                            )
-                        ],
-                        style={
-
-                        }
-                    ),
-                    html.Div(
-                        style={
-                            "width": "1px",
-                            "height": "60%",
-                            "background-color": "#000",
-                        }
-                    ),
-                    html.Div(
-                        children=[
-                            html.Img(
-                                src="../assets/IMG/pages/users.svg",
-                                alt="uuser",
-                                height="48px",
-                                width="48px",
-                            ),
-                            html.H3(
-                                f"{total_users}",
-                                style={
-                                    "font-size": "24px",
-                                    "margin": "10px 0px",
-                                    "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
-                                }
-                            ),
-                            html.H6(
-                                "USER",
+                                "Request",
                                 style={
                                     "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
                                     "font-size": "16px",
@@ -255,6 +256,57 @@ def cardbody(gamex):
         }
 ))
 
+def chart_cont1(gamex):
+    chart1 = html.Div(
+        className="c1_chart1",
+        children=[
+
+        ],
+        style={
+            "width": "27%",
+            "height": "670px",
+            "background-color": "#fff",
+        }
+    )
+    chart2 = html.Div(
+        className="c1_chart2",
+        children=[
+
+        ],
+        style={
+            "width": "27%",
+            "height": "670px",
+            "background-color": "#fff",
+        }
+    )
+    chart3 = html.Div(
+        className="c1_chart3",
+        children=[
+
+        ],
+        style={
+            "width": "27%",
+            "height": "670px",
+            "background-color": "#fff",
+        }
+    )
+
+    return html.Div(
+        className="chart1",
+        children=[
+            chart1,
+            chart2,
+            chart3,
+        ],
+        style={
+            "width": "100%",
+            "display": "flex",
+            "align-items": "center",
+            "justify-content": "space-around",
+        }
+    )
+
+
 def showgame(game_path):
     game = game_path.split('/')[2]
     return html.Div(
@@ -262,7 +314,8 @@ def showgame(game_path):
         children=[
             navbar,
             graph_nav(game),
-            cardbody(game)
+            cardbody(game),
+            chart_cont1(game)
         ],
         style={
             "background-color":"#f4f3ee",
@@ -270,3 +323,4 @@ def showgame(game_path):
             "height": "1700px",
         }
     )
+
