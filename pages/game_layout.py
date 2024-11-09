@@ -451,8 +451,8 @@ class chart_ctn1:
         country = list(users_country.keys())
         value = [int(users_country[country_name]) for country_name in country]
         data = {
-            'country': ['United States', 'Canada', 'Russia', 'India', 'France'],
-            'value': [1, 2, 3, 4, 4]
+            'country': country,
+            'value': value
         }
         df = pd.DataFrame(data)
         df['value'] = df['value'].astype(str)
