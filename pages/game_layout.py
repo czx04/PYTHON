@@ -1,6 +1,9 @@
 # game_layout.py
 import plotly.graph_objs as go
 from dash import html, dcc
+import plotly.express as px
+import pandas as pd
+
 
 from PYTHON.data import datagame, months
 
@@ -355,60 +358,123 @@ class chart_ctn1:
             percentage = (int(users) / total_users) * 100
             country_divs.append(
                 html.Div(
-                children=[
-                    html.Div(
-                        className="country-stat",
-                        children=[
-                            html.Img(
-                                src=f"../assets/IMG/country/{convert_game_name(country)}.svg",  # Đường dẫn tới cờ
-                                alt=f"{country} flag",
-                                height="24px",
-                                width="36px",
-                                style={"marginRight": "10px"}
-                            ),
-                            html.Span(f"{country}",
-                                      style={"fontWeight": "bold", "marginRight": "10px", "display": "inline-block",
-                                             "width": "100px",
-                                             "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif"}),
-                            html.Span(f"{int(users):,}",
-                                      style={"marginRight": "10px", "display": "inline-block", "width": "150px",
-                                             "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif"}),
-                            html.Span(f"{percentage:.2f}%",
-                                      style={"display": "inline-block", "width": "100px",
-                                             "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif"})
-                        ],
-                        style={
-                            "display": "flex",
-                            "alignItems": "center",
-                            "marginBottom": "8px",
-                            "paddingTop": "18px",
-                            "paddingBottom": "8px",
-                        }
-                    ),
-                    html.Div(
-                        style={
-                            "width": "80%",
-                            "height": "1px",
-                            "background-color": "#e9ecef",
-                        }
-                    )
-                ],
+                    children=[
+                        html.Div(
+                            className="country-stat",
+                            children=[
+                                html.Img(
+                                    src=f"../assets/IMG/country/{convert_game_name(country)}.svg",  # Đường dẫn tới cờ
+                                    alt=f"{country} flag",
+                                    height="24px",
+                                    width="36px",
+                                    style={"marginRight": "10px"}
+                                ),
+                                html.Span(f"{country}",
+                                          style={"fontWeight": "bold", "marginRight": "10px", "display": "inline-block",
+                                                 "width": "100px",
+                                                 "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif"}),
+                                html.Span(f"{int(users):,}",
+                                          style={"marginRight": "10px", "display": "inline-block", "width": "150px",
+                                                 "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif"}),
+                                html.Span(f"{percentage:.2f}%",
+                                          style={"display": "inline-block", "width": "100px",
+                                                 "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif"})
+                            ],
+                            style={
+                                "display": "flex",
+                                "alignItems": "center",
+                                "marginBottom": "8px",
+                                "paddingTop": "18px",
+                                "paddingBottom": "8px",
+                            }
+                        ),
+                        html.Div(
+                            style={
+                                "width": "80%",
+                                "height": "1px",
+                                "background-color": "#e9ecef",
+                            }
+                        )
+                    ],
                     style={
                         "display": "flex",
                         "flex-direction": "column",
                         "alignItems": "center",
                     }
-            )
+                )
             )
 
         return html.Div(
-            children= country_divs,
+            children=country_divs,
             style={
                 "width": "100%"
             }
         )
 
-    def draw_chart(self,gamex):
+    def drchart3(self, gamex):
+        game_data = next((game for game in datagame if convert_game_name(game["game"]) == gamex), None)
+        if game_data:
+            users_country = game_data["users/country"]
+            countries = list(users_country.keys())
+            user_counts = [int(value) for value in users_country.values()]
+
+            # Create a bar chart using Plotly
+            trace = go.Bar(
+                x=countries,
+                y=user_counts,
+                marker=dict(color='rgba(54, 162, 235, 0.6)', line=dict(color='rgba(54, 162, 235, 1.0)', width=1)),
+                text=[f"{count:,}" for count in user_counts],
+                textposition='auto'
+            )
+
+            fig = go.Figure(data=[trace])
+            fig.update_layout(
+                height=365,  # Adjust height to fit better within the container
+                margin=dict(l=20, r=20, t=40, b=40),  # Adjust margins for better fit
+                plot_bgcolor='rgba(0,0,0,0)',
+                paper_bgcolor='rgba(0,0,0,0)'
+            )
+
+            # Create an HTML component with the chart
+            return html.Div(
+                children=[
+                    dcc.Graph(figure=fig, style={"height": "100%", "width": "100%"})
+                    # Ensure the graph scales within the div
+                ],
+                style={"width": "100%", "display": "flex", "justify-content": "center"}
+            )
+
+    def footer_chart3(self, gamex):
+        game_data = next((game for game in datagame if convert_game_name(game["game"]) == gamex.lower()), None)
+
+        users_country = game_data.get("active_user/country", {})
+        country = list(users_country.keys())
+        value = [int(users_country[country_name]) for country_name in country]
+        data = {
+            'country': ['United States', 'Canada', 'Russia', 'India', 'France'],
+            'value': [1, 2, 3, 4, 4]
+        }
+        df = pd.DataFrame(data)
+        df['value'] = df['value'].astype(str)
+        fig = px.choropleth(
+            df,
+            locations="country",
+            locationmode="country names",
+            color="value",
+            hover_name="country",
+            color_discrete_map={
+                '1': "#e7e7e7",  # Màu cho giá trị '1'
+                '2': "#8e8e8e",  # Màu cho giá trị '2'
+                '3': "#565656",  # Màu cho giá trị '3'
+                '4': "#000000"  # Màu cho giá trị '4'
+            }
+        )
+        fig.update_layout(coloraxis_showscale=False)
+        return html.Div([
+            dcc.Graph(figure=fig)
+        ])
+
+    def draw_chart(self, gamex):
         total_active_user = 0
         country_count = 0
         for game in datagame:
@@ -446,7 +512,6 @@ class chart_ctn1:
                         "height": "70px",
                     }
                 )
-
 
             ],
             style={
@@ -492,12 +557,16 @@ class chart_ctn1:
                         "margin": "0px 30px",
                         "marginTop": "25px",
                     }
-                )
+                ),
+                self.drchart3(gamex),
+                self.footer_chart3(gamex),
             ],
             style={
                 "width": "27%",
-                "height": "670px",
+                "height": "870px",
                 "background-color": "#fff",
+                "padding": "10px",  # Add padding for better spacing
+                "box-sizing": "border-box"  # Ensure padding does not exceed the container size
             }
         )
 
@@ -509,9 +578,9 @@ class chart_ctn1:
                 chart3,
             ],
             style={
-                "width": "100%",
+
                 "display": "flex",
-                "align-items": "center",
+                "align-items": "stretch",
                 "justify-content": "space-around",
             }
         )
