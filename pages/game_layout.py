@@ -438,7 +438,7 @@ class chart_ctn1:
             # Create an HTML component with the chart
             return html.Div(
                 children=[
-                    dcc.Graph(figure=fig, style={"height": "100%", "width": "100%"})
+                    dcc.Graph(figure=fig,config={"displayModeBar": False}, style={"height": "100%", "width": "100%"})
                     # Ensure the graph scales within the div
                 ],
                 style={"width": "100%", "display": "flex", "justify-content": "center"}
@@ -446,6 +446,8 @@ class chart_ctn1:
 
     def footer_chart3(self, gamex):
         game_data = next((game for game in datagame if convert_game_name(game["game"]) == gamex.lower()), None)
+        if not game_data:
+            return html.Div("No data available for this game.")
 
         users_country = game_data.get("active_user/country", {})
         country = list(users_country.keys())
@@ -463,16 +465,36 @@ class chart_ctn1:
             color="value",
             hover_name="country",
             color_discrete_map={
-                '1': "#e7e7e7",  # Màu cho giá trị '1'
-                '2': "#8e8e8e",  # Màu cho giá trị '2'
-                '3': "#565656",  # Màu cho giá trị '3'
-                '4': "#000000"  # Màu cho giá trị '4'
+                '1': "#e7e7e7",
+                '2': "#e7e7e7",
+                '3': "#8e8e8e",
+                '4': "#8e8e8e",
+                '5': "#8e8e8e",
+                '6': "#565656",
+                '7': "#565656",
+                '8': "#565656",
+                '9': "#565656",
+                '10': "#000000"
             }
         )
-        fig.update_layout(coloraxis_showscale=False)
-        return html.Div([
-            dcc.Graph(figure=fig)
-        ])
+        fig.update_layout(
+            coloraxis_showscale=False,
+            showlegend=False,
+            margin=dict(l=0, r=0, t=0, b=0),
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)'
+        )
+
+        return html.Div(
+            children=[
+                dcc.Graph(
+                    figure=fig,
+                    config={"displayModeBar": False},
+                    style={"width": "100%", "height": "100%"}  # Ensure the graph fills the container
+                )
+            ],
+            style={"width": "100%", "height": "100%"}  # Ensure container takes the full available space
+        )
 
     def draw_chart(self, gamex):
         total_active_user = 0
@@ -548,25 +570,36 @@ class chart_ctn1:
                 html.Div(
                     children=[
                         html.P("Active Country",
-                               style={"font-size": "18px", "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
-                                      "margin": "2px 0", "opacity": "0.4"}),
+                               style={
+                                   "font-size": "18px",
+                                   "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                   "margin": "2px 0",
+                                   "opacity": "0.4"
+                               }),
                         html.P(f"{country_count:,}",
-                               style={"font-size": "40px", "font-family": "Helvetica Neue", "margin": "0px"})
+                               style={
+                                   "font-size": "40px",
+                                   "font-family": "Helvetica Neue",
+                                   "margin": "0px"
+                               })
                     ],
                     style={
                         "margin": "0px 30px",
                         "marginTop": "25px",
                     }
                 ),
-                self.drchart3(gamex),
-                self.footer_chart3(gamex),
+                self.drchart3(gamex),  # Ensure this is aligned correctly
+                self.footer_chart3(gamex),  # Ensuring footer_chart3 fits within chart3
             ],
             style={
                 "width": "27%",
                 "height": "870px",
                 "background-color": "#fff",
                 "padding": "10px",  # Add padding for better spacing
-                "box-sizing": "border-box"  # Ensure padding does not exceed the container size
+                "box-sizing": "border-box",  # Ensure padding does not exceed the container size
+                "display": "flex",
+                "flex-direction": "column",  # Use column direction for stacking
+                "justify-content": "space-between"  # Ensure space distribution
             }
         )
 
