@@ -73,7 +73,6 @@ def graph_nav(game_path):
         },
     )
 
-
 navbar = html.Div(
     className="navbar",
     children=[
@@ -85,22 +84,189 @@ navbar = html.Div(
     }
 )
 
+def cardbody(gamex):
+    game_data = next((game for game in datagame if game["game"].lower().replace(" ", "") == gamex), None)
+    if game_data:
+        total_users = sum(int(game_data["user_up"][month]) for month in months)
+    return (
+        html.Div(
+        className="card-body",
+        children=[
+            html.Div(
+                children=[
+                    html.Div(
+                        children=[
+                            html.Img(
+                                src="../assets/IMG/pages/users.svg",
+                                alt="uuser",
+                                height="48px",
+                                width="48px",
+                            ),
+                            html.H3(
+                                f"{total_users}",
+                                style={
+                                    "font-size": "24px",
+                                    "margin": "10px 0px",
+                                    "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                }
+                            ),
+                            html.H6(
+                                "USER",
+                                style={
+                                    "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                    "font-size": "16px",
+                                    "margin": "10px 0px",
+                                }
+                            )
+                        ],
+                        style={
 
-def showgame(game):
-    games = game.split('/')[2]
+                        }
+                    ),
+                    html.Div(
+                        style={
+                            "width": "1px",
+                            "height": "60%",
+                            "background-color": "#000",
+                        }
+                    ),
+                    html.Div(
+                        children=[
+                            html.Img(
+                                src="../assets/IMG/pages/users.svg",
+                                alt="uuser",
+                                height="48px",
+                                width="48px",
+                            ),
+                            html.H3(
+                                f"{total_users}",
+                                style={
+                                    "font-size": "24px",
+                                    "margin": "10px 0px",
+                                    "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                }
+                            ),
+                            html.H6(
+                                "USER",
+                                style={
+                                    "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                    "font-size": "16px",
+                                    "margin": "10px 0px",
+                                }
+                            )
+                        ],
+                        style={
+
+                        }
+                    ),
+                    html.Div(
+                        style={
+                            "width": "1px",
+                            "height": "60%",
+                            "background-color": "#000",
+                        }
+                    ),
+                    html.Div(
+                        children=[
+                            html.Img(
+                                src="../assets/IMG/pages/users.svg",
+                                alt="uuser",
+                                height="48px",
+                                width="48px",
+                            ),
+                            html.H3(
+                                f"{total_users}",
+                                style={
+                                    "font-size": "24px",
+                                    "margin": "10px 0px",
+                                    "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                }
+                            ),
+                            html.H6(
+                                "USER",
+                                style={
+                                    "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                    "font-size": "16px",
+                                    "margin": "10px 0px",
+                                }
+                            )
+                        ],
+                        style={
+
+                        }
+                    ),
+                    html.Div(
+                        style={
+                            "width": "1px",
+                            "height": "60%",
+                            "background-color": "#000",
+                        }
+                    ),
+                    html.Div(
+                        children=[
+                            html.Img(
+                                src="../assets/IMG/pages/users.svg",
+                                alt="uuser",
+                                height="48px",
+                                width="48px",
+                            ),
+                            html.H3(
+                                f"{total_users}",
+                                style={
+                                    "font-size": "24px",
+                                    "margin": "10px 0px",
+                                    "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                }
+                            ),
+                            html.H6(
+                                "USER",
+                                style={
+                                    "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                    "font-size": "16px",
+                                    "margin": "10px 0px",
+                                }
+                            )
+                        ],
+                        style={
+
+                        }
+                    ),
+                ],
+                style={
+                    "width": "90%",
+                    "height": "170px",
+                    "background-color": "#fff",
+                    "text-align": "center",
+                    "position": "relative",
+                    "top": "-60px",
+                    "display": "flex",
+                    "flex-direction": "row",
+                    "align-items": "center",
+                    "justify-content": "space-around",
+                }
+            )
+
+        ],
+        style={
+            "width": "100%",
+            "display": "flex",
+            "flex-direction": "column",
+            "align-items": "center",
+        }
+))
+
+def showgame(game_path):
+    game = game_path.split('/')[2]
     return html.Div(
         className=f"{game}_div",
         children=[
             navbar,
-            graph_nav(games),
-            html.Div(
-                style={
-                    "width": "25px",
-                    "height": "100px",
-                }
-            )
+            graph_nav(game),
+            cardbody(game)
         ],
         style={
-            "background-color":"#f4f3ee"
+            "background-color":"#f4f3ee",
+            "width": "100%",
+            "height": "1700px",
         }
     )
