@@ -87,14 +87,18 @@ def graph_nav(game_path):
 
 def cardbody(gamex):
     game_data = next((game for game in datagame if game["game"].lower().replace(" ", "") == gamex), None)
-    if game_data:
-        total_users = sum(int(game_data["user_up"][month]) for month in months)
+    total_users = sum(int(game_data["user_up"][month]) for month in months)
     return (
         html.Div(
         className="card-body",
         children=[
             html.Div(
                 children=[
+                    html.Div(
+                        style={
+                            "width": "5px",
+                        }
+                    ),
                     html.Div(
                         children=[
                             html.Img(
@@ -117,6 +121,7 @@ def cardbody(gamex):
                                     "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
                                     "font-size": "16px",
                                     "margin": "10px 0px",
+                                    "opacity": "0.4",
                                 }
                             )
                         ],
@@ -153,6 +158,7 @@ def cardbody(gamex):
                                     "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
                                     "font-size": "16px",
                                     "margin": "10px 0px",
+                                    "opacity": "0.4",
                                 }
                             )
                         ],
@@ -189,6 +195,7 @@ def cardbody(gamex):
                                     "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
                                     "font-size": "16px",
                                     "margin": "10px 0px",
+                                    "opacity": "0.4",
                                 }
                             )
                         ],
@@ -217,6 +224,7 @@ def cardbody(gamex):
                                     "font-size": "24px",
                                     "margin": "10px 0px",
                                     "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+
                                 }
                             ),
                             html.H6(
@@ -225,6 +233,7 @@ def cardbody(gamex):
                                     "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
                                     "font-size": "16px",
                                     "margin": "10px 0px",
+                                    "opacity": "0.4",
                                 }
                             )
                         ],
@@ -232,6 +241,11 @@ def cardbody(gamex):
 
                         }
                     ),
+                    html.Div(
+                        style={
+                            "width": "5px",
+                        }
+                    )
                 ],
                 style={
                     "width": "90%",
@@ -243,7 +257,7 @@ def cardbody(gamex):
                     "display": "flex",
                     "flex-direction": "row",
                     "align-items": "center",
-                    "justify-content": "space-around",
+                    "justify-content": "space-between",
                 }
             )
 
@@ -323,5 +337,4 @@ def showgame(game_path):
             "height": "1700px",
         }
     )
-
 #huhu
