@@ -17,7 +17,7 @@ datagame = [
             "DEC": "4400",
         },
         "avg_daily_active_user": {
-            "JAN": "2400",
+            "JAN": "2401",
             "FEB": "3400",
             "MAR": "2440",
             "APR": "6400",
@@ -62,7 +62,7 @@ datagame = [
             "DEC": "8400",
         },
         "avg_daily_active_user": {
-            "JAN": "2400",
+            "JAN": "2401",
             "FEB": "3400",
             "MAR": "2440",
             "APR": "6400",

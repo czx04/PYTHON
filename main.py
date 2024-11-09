@@ -619,7 +619,7 @@ homepage_layout = html.Div(
         from1,
         overViewtotal,
         chart,
-game_f,
+        game_f,
         game_list
     ],
 
