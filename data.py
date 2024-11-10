@@ -1,7 +1,7 @@
 datagame = [
     {
         "game": "Valorant",
-        "platform": ["android", "ios", "macos", "windows"],
+        "platform": ["android", "ios"],
         "user_up": {
             "JAN": "2400",
             "FEB": "3400",
@@ -54,6 +54,7 @@ datagame = [
             "Russia": "1196",
             "North Korea": "1"
         },
+        "selling_product": ["Gwen", "Yasuo", "Ahri"]
 
     },
     {
@@ -110,7 +111,8 @@ datagame = [
             "Laos": "263",
             "Russia": "1196",
             "North Korea": "1"
-        }
+        },
+        "selling_product": ["Gwen", "Yasuo", "Ahri"]
     },
     {
         "game": "game 3",
@@ -166,7 +168,8 @@ datagame = [
             "Laos": "263",
             "Russia": "1196",
             "North Korea": "1"
-        }
+        },
+        "selling_product": ["Gwen", "Yasuo", "Ahri"]
     },
     {
         "game": "game 4",
@@ -221,7 +224,8 @@ datagame = [
         "Laos": "263",
         "Russia": "1196",
         "North Korea": "1"
-    }
+    },
+        "selling_product": ["Gwen", "Yasuo", "Ahri"]
     },
     {
         "game": "game 5",
@@ -276,7 +280,7 @@ datagame = [
         "Laos": "263",
         "Russia": "1196",
         "North Korea": "1"
-    }
+    }, "selling_product": ["Gwen", "Yasuo", "Ahri"]
     },
     {
         "game": "game 6",
@@ -331,7 +335,8 @@ datagame = [
         "Laos": "263",
         "Russia": "1196",
         "North Korea": "1"
-    }
+    },
+        "selling_product": ["Gwen", "Yasuo", "Ahri"]
     },
     {
         "game": "game 7",
@@ -387,7 +392,8 @@ datagame = [
             "Laos": "263",
             "Russia": "1196",
             "North Korea": "1"
-        }
+        },
+        "selling_product": ["Gwen", "Yasuo", "Ahri"]
     },
     {
         "game": "game 8",
@@ -443,7 +449,8 @@ datagame = [
             "Laos": "263",
             "Russia": "1196",
             "North Korea": "1"
-        }
+        },
+        "selling_product": ["Gwen", "Yasuo", "Ahri"]
     },
     {
         "game": "game 9",
@@ -499,7 +506,28 @@ datagame = [
             "Laos": "263",
             "Russia": "1196",
             "North Korea": "1"
-        }
+        },
+        "selling_product": ["Gwen", "Yasuo", "Ahri"]
+    }
+]
+products = [
+    {
+        "prd": "Gwen",
+        "price": "3500",
+        "tier": "S",
+        "sales volume":"3232"
+    },
+    {
+        "prd": "Yasuo",
+        "price": "3500",
+"tier": "A",
+"sales volume":"3232"
+    },
+    {
+        "prd": "Ahri",
+        "price": "3500",
+"tier": "A",
+"sales volume":"3232"
     }
 ]
 months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]

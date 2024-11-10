@@ -1,11 +1,10 @@
 # game_layout.py
+import pandas as pd
+import plotly.express as px
 import plotly.graph_objs as go
 from dash import html, dcc
-import plotly.express as px
-import pandas as pd
 
-
-from PYTHON.data import datagame, months
+from PYTHON.data import datagame, months, products
 
 
 # format
@@ -112,7 +111,7 @@ def card(gamex):
                             children=[
                                 html.Img(
                                     src="../assets/IMG/pages/message.svg",
-                                    alt="uuser",
+                                    alt="user",
                                     height="48px",
                                     width="48px",
                                 ),
@@ -440,7 +439,7 @@ class chart_ctn1:
             # Create an HTML component with the chart
             return html.Div(
                 children=[
-                    dcc.Graph(figure=fig,config={"displayModeBar": False}, style={"height": "100%", "width": "100%"})
+                    dcc.Graph(figure=fig, config={"displayModeBar": False}, style={"height": "100%", "width": "100%"})
                     # Ensure the graph scales within the div
                 ],
                 style={"width": "100%", "display": "flex", "justify-content": "center"}
@@ -539,7 +538,7 @@ class chart_ctn1:
 
             ],
             style={
-                "width": "42%",
+                "width": "48%",
                 "background-color": "#fff",
             }
         )
@@ -572,7 +571,7 @@ class chart_ctn1:
                 self.footer_chart3(gamex),
             ],
             style={
-                "width": "42%",
+                "width": "48%",
                 "height": "100%",
                 "background-color": "#fff",
                 "padding": "10px",
@@ -585,7 +584,7 @@ class chart_ctn1:
 
         return html.Div(
             className="chart1",
-            children= [
+            children=[
                 html.Div(
                     children=[
                         chart1,
@@ -610,28 +609,138 @@ class chart_ctn1:
 
 class chart_ctn2:
 
-    def ctn(self,game):
+    def ctn(self, game):
+        game_data = next((g for g in datagame if g["game"].lower() == game.lower()), None)
+        if not game_data:
+            return html.Div("Game not found.")
+
+        # Retrieve selling products for the game
+        selling_products = game_data.get("selling_product", [])
+
+        # Filter the product data based on the selling products
+        product_details = [prod for prod in products if prod["prd"] in selling_products]
+
+        # Create table rows for the selling products
+        table_rows = []
+        for product in product_details:
+            price = int(product["price"])
+            sales_volume = int(product["sales volume"])
+            total = price * sales_volume
+            table_rows.append(
+                html.Div(
+                    className="data-row",
+                    children=[
+                        html.Img(src=f"../assets/IMG/products/{product['prd']}.jpg",
+                                 style={"width": "30px", "flex": "0.5"}, ),
+                        html.Div("", style={"flex": "1"}),
+                        html.Div(
+                            children=[
+                                html.Span(product["prd"], style={"margin-left": "10px",
+                                                                 "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif","font-size":"18px"})
+                            ],
+                            style={"display": "flex", "align-items": "center", "flex": "2"}
+                        ),
+                        html.Div(
+                            children=[
+                                html.Div(f"${price:,}",
+                                         style={"font-family": "Montserrat, Helvetica Neue, Arial, sans-serif","font-size":"18px"}),
+                            ],
+                            style={"display": "flex", "align-items": "center", "flex": "1"}
+                        ), html.Div(
+                            children=[
+                                html.Div(product["tier"],
+                                         style={"font-family": "Montserrat, Helvetica Neue, Arial, sans-serif","font-size":"18px"}),
+                            ],
+                            style={"display": "flex", "align-items": "center", "flex": "1"}
+                        ), html.Div(
+                            children=[
+                                html.Div(f"{sales_volume:,}",
+                                         style={"font-family": "Montserrat, Helvetica Neue, Arial, sans-serif","font-size":"18px"}),
+                            ],
+                            style={"display": "flex", "align-items": "center", "flex": "1"}
+                        ),
+                        html.Div(
+                            children=[
+                                html.Div(f"{total:,}",
+                                         style={"font-family": "Montserrat, Helvetica Neue, Arial, sans-serif","font-size":"18px"}),
+                            ],
+                            style={"display": "flex", "align-items": "center", "flex": "0.95"}
+                        ),
+                    ],
+                    style={
+                        "display": "flex",
+                        "padding": "10px 30px",
+                        "border": "none"
+                    }
+                )
+            )
+        total_sum = sum(int(prod["price"]) * int(prod["sales volume"]) for prod in product_details)
+        total_row = html.Div(
+            className="total-row",
+            children=[
+                html.Div(f"Total:   €{total_sum:,}", style={"flex": "0.912", "font-weight": "bold", "text-align": "right",
+                                         "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif","font-size":"20px"}),
+            ],
+            style={
+                "display": "flex",
+                "padding": "10px 30px",
+                "margin-top": "10px"
+            }
+        )
+
         return html.Div(
             children=[
                 html.Div(
                     children=[
-                        html.P(f"Best Selling Products",)
+                        html.P(
+                            "Best Selling Products",
+                            style={"font-size": "24px", "padding-left": "30px", "opacity": "0.9", "color": "#2c2c2c"}
+                        ),
+                        html.Div(
+                            className="table_products",
+                            children=[
+                                         # Header Row
+                                         html.Div(
+                                             className="header-row",
+                                             children=[
+                                                 html.Div("", style={"flex": "0.5"}),
+                                                 html.Div("", style={"flex": "1"}),
+                                                 html.Div("Product", style={"font-size": "18px", "font-weight": "bold",
+                                                                            "flex": "2", "color": "#9c9ea0","font-size":"20px",
+                                                                            "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif", }),
+                                                 html.Div("Price", style={"font-size": "18px", "font-weight": "bold","font-size":"20px",
+                                                                          "flex": "1", "color": "#9c9ea0",
+                                                                          "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif"}),
+                                                 html.Div("Tier", style={"font-size": "18px", "font-weight": "bold","font-size":"20px",
+                                                                         "flex": "1", "color": "#9c9ea0",
+                                                                         "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif"}),
+                                                 html.Div("Sales Volume",
+                                                          style={"font-size": "18px", "font-weight": "bold","font-size":"20px",
+                                                                 "flex": "1", "color": "#9c9ea0",
+                                                                 "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif"}),
+                                                 html.Div("Total", style={"font-size": "18px", "font-weight": "bold",
+                                                                          "flex": "1", "color": "#9c9ea0","font-size":"20px",
+                                                                          "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif"})
+                                             ],
+                                             style={
+                                                 "display": "flex",
+                                                 "padding": "10px 30px",
+                                             }
+                                         )
+                                     ] + table_rows + [total_row],
+                            style={"width": "100%", "background-color": "#fff", }
+                        )
                     ],
-                    style= {
-                        "height": "320px",
+                    style={
                         "width": "90%",
                         "background-color": "#fff",
+                        "margin": "20px auto",
+                        "padding": "10px 0",
                     }
                 )
-            ],
-            style={
-                "width": "100%",
-                "display": "flex",
-                "align-items": "center",
-                "flex-direction": "column",
-                "padding-top": "50px",
-            }
+            ]
         )
+
 
 def showgame(game_path):
     game = game_path.split('/')[-1]

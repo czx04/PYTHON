@@ -3,10 +3,10 @@ import plotly.graph_objs as go
 from dash import dcc, html
 from dash.dependencies import Input, Output
 
-#import pages
+from PYTHON.data import datagame, user_counts, total_games, total_dau, average_playtime
+# import pages
 from PYTHON.pages.game_layout import showgame
 from PYTHON.pages.notfound import notfound
-from PYTHON.data import datagame , user_counts , total_games , total_dau, average_playtime
 
 # Khởi tạo ứng dụng Dash
 app = dash.Dash(__name__)
@@ -62,7 +62,6 @@ from1 = html.Div(
         "border-top": "1px solid #777777",
     }
 )
-
 
 #########################################################################################################
 # total overview
@@ -399,9 +398,9 @@ overViewtotal = html.Div(
         )
     ],
     style={
-        "width": "100%",
+        "width": "90%",
         "display": "flex",
-        "justifyContent": "space-around",
+        "justifyContent": "space-between",
     }
 )
 
@@ -439,7 +438,6 @@ chart = html.Div(
                             title='Tổng số người dùng của các game',
                             xaxis=dict(title='Game'),
                             yaxis=dict(title='Tổng số người dùng'),
-                            width=680,
                             height=450,
                             plot_bgcolor='rgba(0,0,0,0)'
                         )
@@ -447,9 +445,10 @@ chart = html.Div(
                 )
             ],
             style={
-                "width": "40%",
-                "height": "90%",
+                "flex": "1",
+                "height": "100%",
                 "backgroundColor": "#fff",
+                "margin": "10px"
             }
         ),
         html.Div(
@@ -470,29 +469,29 @@ chart = html.Div(
                             title="User Growth by Game and Month",
                             xaxis={"title": "Month"},
                             yaxis={"title": "User Increase"},
-                            width=680,
                             height=450,
                         )
                     }
                 )
             ],
             style={
-                "width": "40%",
-                "height": "90%",
+                "flex": "1",
+                "height": "100%",
                 "backgroundColor": "#fff",
+                "margin": "10px"
             }
         )
 
     ],
     style={
-        "width": "100%",
-        "height": "500px",
+        "width": "90%",
         "display": "flex",
         "margin-top": "40px",
-        "justifyContent": "space-around",
-        "overflow": "hidden",
+        "justifyContent": "space-between",
+        "alignItems": "center"
     }
 )
+
 
 def format_game_path(name):
     return name.replace(" ", "").lower()
@@ -501,6 +500,7 @@ def format_game_path(name):
 def get_source_img(game):
     return f"./assets/IMG/games/{format_game_path(game)}.svg"
 
+
 def get_platform_images(game_name):
     # Find the game in the datagame list
     platforms = []
@@ -508,31 +508,29 @@ def get_platform_images(game_name):
         if game["game"] == game_name:
             platforms = game["platform"]
             break
-
-    # Generate image elements for each platform
     platform_images = []
     for platform in platforms:
         platform_images.append(
             html.Img(
                 src=f"./assets/IMG/platforms/{platform}.svg",
                 alt=platform,
-                width="38",
-                height="38",
+                width="24",
+                height="24",
                 style={"cursor": "pointer", "margin-right": "5px"}
             )
         )
     return platform_images
 
 
-
 game_f = html.Div(
     className="game_f",
     children=[
-html.Div(
+        html.Div(
             className="game_fff",
-            style={"height": "1px","width": "100px"},
+            style={"height": "1px", "width": "100px"},
         ),
-        html.P("GAME LIST",style={"font-size": "25px"}),
+        html.P("GAME LIST",
+               style={"font-size": "25px", "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif"}),
 
     ],
     style={
@@ -541,7 +539,6 @@ html.Div(
         "justifyContent": "start",
     }
 )
-
 
 game_btn = []
 for game in games:
@@ -559,8 +556,15 @@ for game in games:
                                     'font-size': '20px',
                                     'font-weight': 'bold',
                                     'color': '#777777',
+                                    "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif"
                                 }),
-                                *get_platform_images(game),
+                                html.Div(
+                                    children=get_platform_images(game),
+                                    style={
+                                        "position": "relative",
+                                        "top": "-5"
+                                    }
+                                )
                             ],
                             style={
                                 'display': 'flex',
@@ -582,7 +586,7 @@ for game in games:
                 )
             ],
             href=f"/games/{format_game_path(game)}",
-            style = {
+            style={
                 'textDecoration': 'none',  # Remove underline for link
                 ':hover': {
                     'textDecoration': 'underline'  # Add underline on hover
@@ -623,7 +627,6 @@ homepage_layout = html.Div(
         game_f,
         game_list
     ],
-
 )
 
 app.layout = html.Div(
@@ -645,6 +648,7 @@ def display_page(pathname):
         return showgame(pathname)
     else:
         return notfound(pathname)
+
 
 if __name__ == '__main__':
     app.run_server(debug=True, port=3040)
