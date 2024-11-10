@@ -94,12 +94,12 @@ def graph_nav(game_path):
     )
 
 
-def cardbody(gamex):
+def card(gamex):
     game_data = next((game for game in datagame if game["game"].lower().replace(" ", "") == gamex), None)
     total_users = sum(int(game_data["user_up"][month]) for month in months)
     return (
         html.Div(
-            className="card-body",
+            className="card",
             children=[
                 html.Div(
                     children=[
@@ -345,7 +345,6 @@ class chart_ctn1:
         if not game_data:
             return html.Div("Game data not found.")
 
-        # Lấy dữ liệu active_user/country và sắp xếp theo số lượng người dùng giảm dần
         country_data = game_data["active_user/country"]
         sorted_countries = sorted(country_data.items(), key=lambda x: int(x[1]), reverse=True)[:6]
 
@@ -407,7 +406,10 @@ class chart_ctn1:
         return html.Div(
             children=country_divs,
             style={
-                "width": "100%"
+                "width": "100%",
+                "margin": "0 auto",
+                "padding": "10px",
+                "box-sizing": "border-box"
             }
         )
 
@@ -611,24 +613,51 @@ class chart_ctn1:
 
         return html.Div(
             className="chart1",
-            children=[
-                chart1,
-                chart2,
-                chart3,
+            children= [
+                html.Div(
+                    children=[
+                        chart1,
+                        chart2,
+                        chart3,
+                    ],
+                    style={
+                        "width": "90%",
+                        "display": "flex",
+                        "align-items": "stretch",
+                        "justify-content": "space-between",
+                    }
+                )
             ],
             style={
-
+                "width": "100%",
+                "justify-content": "center",
                 "display": "flex",
-                "align-items": "stretch",
-                "justify-content": "space-around",
+                "margin": "auto",
             }
         )
 
 
-# class chart_ctn2:
+class chart_ctn2:
+    def ctn(self,game):
+        return html.Div(
+            children=[
+                html.Div(
 
-
-
+                    style= {
+                        "height": "320px",
+                        "width": "90%",
+                        "background-color": "#fff",
+                    }
+                )
+            ],
+            style={
+                "width": "100%",
+                "display": "flex",
+                "align-items": "center",
+                "flex-direction": "column",
+                "padding-top": "50px",
+            }
+        )
 
 def showgame(game_path):
     game = game_path.split('/')[-1]
@@ -637,14 +666,13 @@ def showgame(game_path):
         children=[
             navbar,
             graph_nav(game),
-            cardbody(game),
-            chart_ctn1().draw_chart(game)
+            card(game),
+            chart_ctn1().draw_chart(game),
+            chart_ctn2().ctn(game)
         ],
         style={
             "background-color": "#f4f3ee",
             "width": "100%",
-            "height": "1700px",
+            "height": "3000px",
         }
     )
-
-# huhu
