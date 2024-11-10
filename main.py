@@ -542,6 +542,7 @@ html.Div(
     }
 )
 
+
 game_btn = []
 for game in games:
     game_btn.append(

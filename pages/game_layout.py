@@ -539,36 +539,8 @@ class chart_ctn1:
 
             ],
             style={
-                "width": "27%",
+                "width": "42%",
                 "background-color": "#fff",
-            }
-        )
-        chart2 = html.Div(
-            className="c1_chart2",
-            children=[
-                html.Div(
-                    children=[
-                        html.P("Active User",
-                               style={"font-size": "18px", "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
-                                      "margin": "2px 0", "opacity": "0.4"}),
-                        html.P(f"{total_active_user:,}",
-                               style={"font-size": "40px", "font-family": "Helvetica Neue", "margin": "0px"})
-                    ],
-                    style={
-                        "margin": "0px 30px",
-                        "marginTop": "25px",
-                    }
-                )
-            ],
-            style={
-                "width": "27%",
-                "height": "100%",
-                "background-color": "#fff",
-                "padding": "10px",
-                "box-sizing": "border-box",
-                "display": "flex",
-                "flex-direction": "column",
-                "justify-content": "space-between"
             }
         )
         chart3 = html.Div(
@@ -600,7 +572,7 @@ class chart_ctn1:
                 self.footer_chart3(gamex),
             ],
             style={
-                "width": "27%",
+                "width": "42%",
                 "height": "100%",
                 "background-color": "#fff",
                 "padding": "10px",
@@ -617,7 +589,6 @@ class chart_ctn1:
                 html.Div(
                     children=[
                         chart1,
-                        chart2,
                         chart3,
                     ],
                     style={
@@ -638,11 +609,14 @@ class chart_ctn1:
 
 
 class chart_ctn2:
+
     def ctn(self,game):
         return html.Div(
             children=[
                 html.Div(
-
+                    children=[
+                        html.P(f"Best Selling Products",)
+                    ],
                     style= {
                         "height": "320px",
                         "width": "90%",
