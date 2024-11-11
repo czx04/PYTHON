@@ -612,6 +612,39 @@ avgtime = [
     },
 ]
 
+retention_data = [
+{"day": "30/10/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170, "retention_day_4": 60,
+     "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+{"day": "31/10/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170, "retention_day_4": 60,
+     "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+{"day": "01/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170, "retention_day_4": 60,
+     "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+{"day": "02/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170, "retention_day_4": 60,
+     "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+{"day": "03/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170, "retention_day_4": 60,
+     "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+    {"day": "04/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170, "retention_day_4": 60,
+     "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+    {"day": "05/11/2024", "retention_day_1": 120, "retention_day_2": 90, "retention_day_3": 75, "retention_day_4": 65,
+     "retention_day_5": 55, "retention_day_6": 45, "retention_day_7": 35},
+    {"day": "06/11/2024", "retention_day_1": 940, "retention_day_2": 310, "retention_day_3": 200, "retention_day_4": 185,
+     "retention_day_5": 175, "retention_day_6": 165, "retention_day_7": 250},
+    {"day": "07/11/2024", "retention_day_1": 920, "retention_day_2": 300, "retention_day_3": 180, "retention_day_4": 170,
+     "retention_day_5": 160, "retention_day_6": 150, "retention_day_7": 240},
+    {"day": "08/11/2024", "retention_day_1": 900, "retention_day_2": 290, "retention_day_3": 170, "retention_day_4": 160,
+     "retention_day_5": 150, "retention_day_6": 140, "retention_day_7": 230},
+    {"day": "09/11/2024", "retention_day_1": 880, "retention_day_2": 280, "retention_day_3": 160, "retention_day_4": 150,
+     "retention_day_5": 140, "retention_day_6": 130, "retention_day_7": 220},
+    {"day": "10/11/2024", "retention_day_1": 860, "retention_day_2": 270, "retention_day_3": 150, "retention_day_4": 140,
+     "retention_day_5": 130, "retention_day_6": 120, "retention_day_7": 210},
+    {"day": "11/11/2024", "retention_day_1": 840, "retention_day_2": 260, "retention_day_3": 140, "retention_day_4": 130,
+     "retention_day_5": 120, "retention_day_6": 110, "retention_day_7": 200},
+    {"day": "12/11/2024", "retention_day_1": 820, "retention_day_2": 250, "retention_day_3": 130, "retention_day_4": 120,
+     "retention_day_5": 110, "retention_day_6": 100, "retention_day_7": 190},
+    {"day": "13/11/2024", "retention_day_1": 800, "retention_day_2": 240, "retention_day_3": 120, "retention_day_4": 110,
+     "retention_day_5": 100, "retention_day_6": 90, "retention_day_7": 180},
+]
+
 months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
 
 # define variable main.py

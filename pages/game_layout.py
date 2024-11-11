@@ -2,9 +2,10 @@
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objs as go
+from altair.examples.pyramid import color
 from dash import html, dcc
 
-from PYTHON.data import datagame, months, products, session, avgtime
+from PYTHON.data import datagame, months, products, session, avgtime, retention_data
 
 
 # format
@@ -306,7 +307,7 @@ class chart_ctn1:
             yaxis=dict(
                 showgrid=False,
                 showline=False,
-                visible=False
+                visible=False,
             )
         )
         return html.Div(
@@ -767,7 +768,7 @@ class chart_ctn3:
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
             xaxis=dict(title="Ngày"),
-            yaxis=dict(title="Tổng Phiên Chơi Tích Lũy"),
+            yaxis=dict(title="Tổng Phiên Chơi Tích Lũy",gridcolor='rgba(204, 204, 204, 0.35)'),
             # template='plotly_dark',
         )
 
@@ -789,7 +790,7 @@ class chart_ctn3:
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
             xaxis=dict(title="Ngày"),
-            yaxis=dict(title="Thời gian chơi trung bình mỗi người chơi"),
+            yaxis=dict(title="Thời gian chơi trung bình mỗi người chơi",gridcolor='rgba(204, 204, 204, 0.35)'),
             # template='plotly_dark',
         )
 
@@ -842,9 +843,44 @@ class chart_ctn3:
 
 
 class chart_ctn4:
+    def retention_chart(self, game):
+        df_retention = pd.DataFrame(retention_data)
+        df_retention['day'] = pd.to_datetime(df_retention['day'], format='%d/%m/%Y')
+        df_retention = df_retention.sort_values(by='day', ascending=False)  # Sắp xếp theo ngày giảm dần
+        traces = []
+        days = ['retention_day_1', 'retention_day_2', 'retention_day_3', 'retention_day_4', 'retention_day_5',
+                'retention_day_6', 'retention_day_7']
+
+        # Tạo 7 đường cho Retention của từng ngày
+        for i, day in enumerate(days):
+            trace = go.Scatter(
+                x=df_retention['day'],
+                y=df_retention[day],
+                mode='lines+markers',
+                name=f"Ngày {i + 1}",
+                line=dict(shape='spline'),
+                marker=dict(size=8),
+            )
+            traces.append(trace)
+        xlayout = go.Layout(
+            title="Retention Theo Ngày (7 Ngày)",
+            xaxis=dict(title="Ngày", tickangle=45),
+            yaxis=dict(title="Số Lượt Quay Lại Chơi",gridcolor='rgba(204, 204, 204, 0.35)'),
+            showlegend=True,
+            autosize=True,
+            # paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            margin=dict(l=20, r=20, t=40, b=40),
+            xaxis_rangeslider_visible=False,
+            height=400,
+        )
+        return dcc.Graph(figure=go.Figure(data=traces, layout=xlayout), config={"displayModeBar": False})
+
     def chart(self, game):
         return html.Div(
-            children=[],
+            children=[
+                self.retention_chart(game),
+            ],
             style={
                 "width": "90%",
                 "height": "100px",
@@ -866,7 +902,6 @@ class chart_ctn4:
                 "margin": "20px 0",
             }
         )
-
 
 def showgame(game_path):
     game = game_path.split('/')[-1]
