@@ -21,14 +21,14 @@ navbar = html.Div(
             className="navbar-icons",
             children=[
                 html.Img(
-                    src="./assets/IMG/github.svg",
+                    src="assets/IMG/others/github.svg",
                     alt="GitHub",
                     width="28",
                     height="28",
                     style={"cursor": "pointer"},  # Moved cursor styling here
                 ),
                 html.Img(
-                    src="./assets/IMG/infor.svg",
+                    src="assets/IMG/others/infor.svg",
                     alt="Info",
                     className="info-icon",
                     width="24",
@@ -75,7 +75,7 @@ overViewtotal = html.Div(
                     className="ot_nav",
                     children=[
                         html.Img(
-                            src="./assets/IMG/server-svgrepo-com.svg",
+                            src="assets/IMG/others/server-svgrepo-com.svg",
                             alt="Server SVG",
                             width="60",
                             height="60",
@@ -119,14 +119,14 @@ overViewtotal = html.Div(
                     className="ot_footer",
                     children=[
                         html.Img(
-                            src="./assets/IMG/copy_img.svg",
+                            src="assets/IMG/others/copy_img.svg",
                             alt="Copy Image",
                             width="26",
                             height="26",
                             style={"cursor": "pointer"},
                         ),
                         html.Img(
-                            src="./assets/IMG/question.svg",
+                            src="assets/IMG/others/question.svg",
                             alt="Copy Image",
                             width="26",
                             height="26",
@@ -157,7 +157,7 @@ overViewtotal = html.Div(
                     className="ot_nav",
                     children=[
                         html.Img(
-                            src="./assets/IMG/game_card.svg",
+                            src="assets/IMG/others/game_card.svg",
                             alt="Server SVG",
                             width="60",
                             height="60",
@@ -201,14 +201,14 @@ overViewtotal = html.Div(
                     className="ot_footer",
                     children=[
                         html.Img(
-                            src="./assets/IMG/copy_img.svg",
+                            src="assets/IMG/others/copy_img.svg",
                             alt="Copy Image",
                             width="26",
                             height="26",
                             style={"cursor": "pointer"},
                         ),
                         html.Img(
-                            src="./assets/IMG/question.svg",
+                            src="assets/IMG/others/question.svg",
                             alt="Copy Image",
                             width="26",
                             height="26",
@@ -239,7 +239,7 @@ overViewtotal = html.Div(
                     className="ot_nav",
                     children=[
                         html.Img(
-                            src="./assets/IMG/dau.svg",
+                            src="assets/IMG/others/dau.svg",
                             alt="Server SVG",
                             width="60",
                             height="60",
@@ -283,14 +283,14 @@ overViewtotal = html.Div(
                     className="ot_footer",
                     children=[
                         html.Img(
-                            src="./assets/IMG/copy_img.svg",
+                            src="assets/IMG/others/copy_img.svg",
                             alt="Copy Image",
                             width="26",
                             height="26",
                             style={"cursor": "pointer"},
                         ),
                         html.Img(
-                            src="./assets/IMG/question.svg",
+                            src="assets/IMG/others/question.svg",
                             alt="Copy Image",
                             width="26",
                             height="26",
@@ -321,7 +321,7 @@ overViewtotal = html.Div(
                     className="ot_nav",
                     children=[
                         html.Img(
-                            src="./assets/IMG/time.svg",
+                            src="assets/IMG/others/time.svg",
                             alt="Server SVG",
                             width="60",
                             height="60",
@@ -365,14 +365,14 @@ overViewtotal = html.Div(
                     className="ot_footer",
                     children=[
                         html.Img(
-                            src="./assets/IMG/copy_img.svg",
+                            src="assets/IMG/others/copy_img.svg",
                             alt="Copy Image",
                             width="26",
                             height="26",
                             style={"cursor": "pointer"},
                         ),
                         html.Img(
-                            src="./assets/IMG/question.svg",
+                            src="assets/IMG/others/question.svg",
                             alt="Copy Image",
                             width="26",
                             height="26",

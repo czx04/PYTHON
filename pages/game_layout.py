@@ -11,273 +11,268 @@ from PYTHON.data import datagame, months, products
 def convert_game_name(gamex):
     return gamex.lower().replace(' ', '')
 
-
-# UI
-back_btn = html.Div(
-    style={"textAlign": "left", "display": "flex"},
-    children=[
-        html.Div(
-            style={
-                "width": "25px",
-                "height": "1px",
-            }
-        ),
-        dcc.Link([
-            html.Img(
-                src="../assets/IMG/undo-white.svg",
-                alt="Info",
-                className="info-icon",
-                width="24",
-                height="24",
-                style={"cursor": "pointer", "padding": "30px 30px"},
-            )
-        ], href="/", style={"fontSize": "20px", "color": "blue"}),
-    ],
-)
-
-navbar = html.Div(
-    className="navbar",
-    children=[
-        back_btn
-    ],
-    style={
-        "position": "absolute",
-        "zIndex": 10
-    }
-)
-
-
-def graph_nav(game_path):
-    game_data = next((game for game in datagame if game["game"].lower().replace(" ", "") == game_path), None)
-    if game_data:
-        user_counts = [int(game_data["user_up"][month]) for month in months]
-    trace = go.Scatter(
-        x=months,
-        y=user_counts,
-        mode='lines+markers',
-        name=game_data["game"],
-        line=dict(color='white', shape='spline', smoothing=1.3),
-        fill='tonexty',
-        fillcolor='rgba(255, 255, 255, 0.2)',
-        marker=dict(size=8)
-    )
-    fig = go.Figure(data=[trace])
-    fig.update_layout(
-        height=420,
-        paper_bgcolor='rgba(0,0,0,0)',
-        plot_bgcolor='rgba(0,0,0,0)',
-        template='plotly_dark',
-        xaxis=dict(
-            showgrid=False,
-            automargin=True,
-            range=[-0.2, len(months) - 1]
-        )
-    )
-    return html.Div(
-        className="graph-nav",
+class navbar:
+    back_btn = html.Div(
+        style={"textAlign": "left", "display": "flex"},
         children=[
             html.Div(
-                children=[
-                    dcc.Graph(figure=fig, config={"displayModeBar": False}, style={
-                        "height": "100%",
-                        "transform": "translateY(-10px)"
-                    }),
-
-                ],
-                style={"background": "linear-gradient(to right, #0c2442, #2a5687)", "height": "365px"}
-            )
+                style={
+                    "width": "25px",
+                    "height": "1px",
+                }
+            ),
+            dcc.Link([
+                html.Img(
+                    src="../assets/IMG/others/undo-white.svg",
+                    alt="Info",
+                    className="info-icon",
+                    width="24",
+                    height="24",
+                    style={"cursor": "pointer", "padding": "30px 30px"},
+                )
+            ], href="/", style={"fontSize": "20px", "color": "blue"}),
+        ],
+    )
+    navbarx = html.Div(
+        className="navbar",
+        children=[
+            back_btn
         ],
         style={
-
-        },
+            "position": "absolute",
+            "zIndex": 10
+        }
     )
 
-
-def card(gamex):
-    game_data = next((game for game in datagame if game["game"].lower().replace(" ", "") == gamex), None)
-    total_users = sum(int(game_data["user_up"][month]) for month in months)
-    return (
-        html.Div(
-            className="card",
+    def graph_nav(game_path):
+        game_data = next((game for game in datagame if game["game"].lower().replace(" ", "") == game_path), None)
+        if game_data:
+            user_counts = [int(game_data["user_up"][month]) for month in months]
+        trace = go.Scatter(
+            x=months,
+            y=user_counts,
+            mode='lines+markers',
+            name=game_data["game"],
+            line=dict(color='white', shape='spline', smoothing=1.3),
+            fill='tonexty',
+            fillcolor='rgba(255, 255, 255, 0.2)',
+            marker=dict(size=8)
+        )
+        fig = go.Figure(data=[trace])
+        fig.update_layout(
+            height=420,
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            template='plotly_dark',
+            xaxis=dict(
+                showgrid=False,
+                automargin=True,
+                range=[-0.2, len(months) - 1]
+            )
+        )
+        return html.Div(
+            className="graph-nav",
             children=[
                 html.Div(
                     children=[
-                        html.Div(
-                            style={
-                                "width": "5px",
-                            }
-                        ),
-                        html.Div(
-                            children=[
-                                html.Img(
-                                    src="../assets/IMG/pages/message.svg",
-                                    alt="user",
-                                    height="48px",
-                                    width="48px",
-                                ),
-                                html.H3(
-                                    f"{total_users:,}",
-                                    style={
-                                        "font-size": "24px",
-                                        "margin": "10px 0px",
-                                        "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
-                                    }
-                                ),
-                                html.H6(
-                                    "Message",
-                                    style={
-                                        "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
-                                        "font-size": "16px",
-                                        "margin": "10px 0px",
-                                        "opacity": "0.4",
-                                    }
-                                )
-                            ],
-                            style={
+                        dcc.Graph(figure=fig, config={"displayModeBar": False}, style={
+                            "height": "100%",
+                            "transform": "translateY(-10px)"
+                        }),
 
-                            }
-                        ),
-                        html.Div(
-                            style={
-                                "width": "1px",
-                                "height": "60%",
-                                "background-color": "#000",
-                            }
-                        ),
-                        html.Div(
-                            children=[
-                                html.Img(
-                                    src="../assets/IMG/pages/money.svg",
-                                    alt="uuser",
-                                    height="48px",
-                                    width="48px",
-                                ),
-                                html.H3(
-                                    f"$ {total_users}",
-                                    style={
-                                        "font-size": "24px",
-                                        "margin": "10px 0px",
-                                        "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
-                                    }
-                                ),
-                                html.H6(
-                                    "Today Revenue",
-                                    style={
-                                        "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
-                                        "font-size": "16px",
-                                        "margin": "10px 0px",
-                                        "opacity": "0.4",
-                                    }
-                                )
-                            ],
-                            style={
-
-                            }
-                        ),
-                        html.Div(
-                            style={
-                                "width": "1px",
-                                "height": "60%",
-                                "background-color": "#000",
-                            }
-                        ),
-                        html.Div(
-                            children=[
-                                html.Img(
-                                    src="../assets/IMG/pages/users.svg",
-                                    alt="uuser",
-                                    height="48px",
-                                    width="48px",
-                                ),
-                                html.H3(
-                                    f"{total_users}",
-                                    style={
-                                        "font-size": "24px",
-                                        "margin": "10px 0px",
-                                        "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
-                                    }
-                                ),
-                                html.H6(
-                                    "User",
-                                    style={
-                                        "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
-                                        "font-size": "16px",
-                                        "margin": "10px 0px",
-                                        "opacity": "0.4",
-                                    }
-                                )
-                            ],
-                            style={
-
-                            }
-                        ),
-                        html.Div(
-                            style={
-                                "width": "1px",
-                                "height": "60%",
-                                "background-color": "#000",
-                            }
-                        ),
-                        html.Div(
-                            children=[
-                                html.Img(
-                                    src="../assets/IMG/pages/request.svg",
-                                    alt="uuser",
-                                    height="48px",
-                                    width="48px",
-                                ),
-                                html.H3(
-                                    f"{total_users}",
-                                    style={
-                                        "font-size": "24px",
-                                        "margin": "10px 0px",
-                                        "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
-
-                                    }
-                                ),
-                                html.H6(
-                                    "Request",
-                                    style={
-                                        "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
-                                        "font-size": "16px",
-                                        "margin": "10px 0px",
-                                        "opacity": "0.4",
-                                    }
-                                )
-                            ],
-                            style={
-
-                            }
-                        ),
-                        html.Div(
-                            style={
-                                "width": "5px",
-                            }
-                        )
                     ],
-                    style={
-                        "width": "90%",
-                        "height": "170px",
-                        "background-color": "#fff",
-                        "text-align": "center",
-                        "position": "relative",
-                        "top": "-60px",
-                        "display": "flex",
-                        "flex-direction": "row",
-                        "align-items": "center",
-                        "justify-content": "space-between",
-                    }
+                    style={"background": "linear-gradient(to right, #0c2442, #2a5687)", "height": "365px"}
                 )
-
             ],
             style={
-                "width": "100%",
-                "display": "flex",
-                "flex-direction": "column",
-                "align-items": "center",
-            }
-        ))
 
+            },
+        )
+
+    def card(gamex):
+        game_data = next((game for game in datagame if game["game"].lower().replace(" ", "") == gamex), None)
+        total_users = sum(int(game_data["user_up"][month]) for month in months)
+        return (
+            html.Div(
+                className="card",
+                children=[
+                    html.Div(
+                        children=[
+                            html.Div(
+                                style={
+                                    "width": "5px",
+                                }
+                            ),
+                            html.Div(
+                                children=[
+                                    html.Img(
+                                        src="../assets/IMG/pages/message.svg",
+                                        alt="user",
+                                        height="48px",
+                                        width="48px",
+                                    ),
+                                    html.H3(
+                                        f"{total_users:,}",
+                                        style={
+                                            "font-size": "24px",
+                                            "margin": "10px 0px",
+                                            "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                        }
+                                    ),
+                                    html.H6(
+                                        "Message",
+                                        style={
+                                            "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                            "font-size": "16px",
+                                            "margin": "10px 0px",
+                                            "opacity": "0.4",
+                                        }
+                                    )
+                                ],
+                                style={
+
+                                }
+                            ),
+                            html.Div(
+                                style={
+                                    "width": "1px",
+                                    "height": "60%",
+                                    "background-color": "#000",
+                                }
+                            ),
+                            html.Div(
+                                children=[
+                                    html.Img(
+                                        src="../assets/IMG/pages/money.svg",
+                                        alt="uuser",
+                                        height="48px",
+                                        width="48px",
+                                    ),
+                                    html.H3(
+                                        f"$ {total_users}",
+                                        style={
+                                            "font-size": "24px",
+                                            "margin": "10px 0px",
+                                            "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                        }
+                                    ),
+                                    html.H6(
+                                        "Today Revenue",
+                                        style={
+                                            "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                            "font-size": "16px",
+                                            "margin": "10px 0px",
+                                            "opacity": "0.4",
+                                        }
+                                    )
+                                ],
+                                style={
+
+                                }
+                            ),
+                            html.Div(
+                                style={
+                                    "width": "1px",
+                                    "height": "60%",
+                                    "background-color": "#000",
+                                }
+                            ),
+                            html.Div(
+                                children=[
+                                    html.Img(
+                                        src="../assets/IMG/pages/users.svg",
+                                        alt="uuser",
+                                        height="48px",
+                                        width="48px",
+                                    ),
+                                    html.H3(
+                                        f"{total_users}",
+                                        style={
+                                            "font-size": "24px",
+                                            "margin": "10px 0px",
+                                            "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                        }
+                                    ),
+                                    html.H6(
+                                        "User",
+                                        style={
+                                            "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                            "font-size": "16px",
+                                            "margin": "10px 0px",
+                                            "opacity": "0.4",
+                                        }
+                                    )
+                                ],
+                                style={
+
+                                }
+                            ),
+                            html.Div(
+                                style={
+                                    "width": "1px",
+                                    "height": "60%",
+                                    "background-color": "#000",
+                                }
+                            ),
+                            html.Div(
+                                children=[
+                                    html.Img(
+                                        src="../assets/IMG/pages/request.svg",
+                                        alt="uuser",
+                                        height="48px",
+                                        width="48px",
+                                    ),
+                                    html.H3(
+                                        f"{total_users}",
+                                        style={
+                                            "font-size": "24px",
+                                            "margin": "10px 0px",
+                                            "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+
+                                        }
+                                    ),
+                                    html.H6(
+                                        "Request",
+                                        style={
+                                            "font-family": "Montserrat,Helvetica Neue,Arial,sans-serif",
+                                            "font-size": "16px",
+                                            "margin": "10px 0px",
+                                            "opacity": "0.4",
+                                        }
+                                    )
+                                ],
+                                style={
+
+                                }
+                            ),
+                            html.Div(
+                                style={
+                                    "width": "5px",
+                                }
+                            )
+                        ],
+                        style={
+                            "width": "90%",
+                            "height": "170px",
+                            "background-color": "#fff",
+                            "text-align": "center",
+                            "position": "relative",
+                            "top": "-60px",
+                            "display": "flex",
+                            "flex-direction": "row",
+                            "align-items": "center",
+                            "justify-content": "space-between",
+                        }
+                    )
+
+                ],
+                style={
+                    "width": "100%",
+                    "display": "flex",
+                    "flex-direction": "column",
+                    "align-items": "center",
+                }
+            ))
 
 class chart_ctn1:
     def drchart1(self, gamex):
@@ -497,7 +492,7 @@ class chart_ctn1:
             style={"width": "100%", "height": "100%"}
         )
 
-    def draw_chart(self, gamex):
+    def show(self, gamex):
         total_active_user = 0
         country_count = 0
         for game in datagame:
@@ -606,9 +601,7 @@ class chart_ctn1:
             }
         )
 
-
 class chart_ctn2:
-
     def ctn(self, game):
         game_data = next((g for g in datagame if g["game"].lower() == game.lower()), None)
         if not game_data:
@@ -636,33 +629,38 @@ class chart_ctn2:
                         html.Div(
                             children=[
                                 html.Span(product["prd"], style={"margin-left": "10px",
-                                                                 "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif","font-size":"18px"})
+                                                                 "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif",
+                                                                 "font-size": "18px"})
                             ],
                             style={"display": "flex", "align-items": "center", "flex": "2"}
                         ),
                         html.Div(
                             children=[
                                 html.Div(f"${price:,}",
-                                         style={"font-family": "Montserrat, Helvetica Neue, Arial, sans-serif","font-size":"18px"}),
+                                         style={"font-family": "Montserrat, Helvetica Neue, Arial, sans-serif",
+                                                "font-size": "18px"}),
                             ],
                             style={"display": "flex", "align-items": "center", "flex": "1"}
                         ), html.Div(
                             children=[
                                 html.Div(product["tier"],
-                                         style={"font-family": "Montserrat, Helvetica Neue, Arial, sans-serif","font-size":"18px"}),
+                                         style={"font-family": "Montserrat, Helvetica Neue, Arial, sans-serif",
+                                                "font-size": "18px"}),
                             ],
                             style={"display": "flex", "align-items": "center", "flex": "1"}
                         ), html.Div(
                             children=[
                                 html.Div(f"{sales_volume:,}",
-                                         style={"font-family": "Montserrat, Helvetica Neue, Arial, sans-serif","font-size":"18px"}),
+                                         style={"font-family": "Montserrat, Helvetica Neue, Arial, sans-serif",
+                                                "font-size": "18px"}),
                             ],
                             style={"display": "flex", "align-items": "center", "flex": "1"}
                         ),
                         html.Div(
                             children=[
                                 html.Div(f"{total:,}",
-                                         style={"font-family": "Montserrat, Helvetica Neue, Arial, sans-serif","font-size":"18px"}),
+                                         style={"font-family": "Montserrat, Helvetica Neue, Arial, sans-serif",
+                                                "font-size": "18px"}),
                             ],
                             style={"display": "flex", "align-items": "center", "flex": "0.95"}
                         ),
@@ -678,8 +676,9 @@ class chart_ctn2:
         total_row = html.Div(
             className="total-row",
             children=[
-                html.Div(f"Total:   €{total_sum:,}", style={"flex": "0.912", "font-weight": "bold", "text-align": "right",
-                                         "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif","font-size":"20px"}),
+                html.Div(f"Total:   €{total_sum:,}",
+                         style={"flex": "0.912", "font-weight": "bold", "text-align": "right",
+                                "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif", "font-size": "20px"}),
             ],
             style={
                 "display": "flex",
@@ -706,20 +705,25 @@ class chart_ctn2:
                                                  html.Div("", style={"flex": "0.5"}),
                                                  html.Div("", style={"flex": "1"}),
                                                  html.Div("Product", style={"font-size": "18px", "font-weight": "bold",
-                                                                            "flex": "2", "color": "#9c9ea0","font-size":"20px",
+                                                                            "flex": "2", "color": "#9c9ea0",
+                                                                            "font-size": "20px",
                                                                             "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif", }),
-                                                 html.Div("Price", style={"font-size": "18px", "font-weight": "bold","font-size":"20px",
+                                                 html.Div("Price", style={"font-size": "18px", "font-weight": "bold",
+                                                                          "font-size": "20px",
                                                                           "flex": "1", "color": "#9c9ea0",
                                                                           "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif"}),
-                                                 html.Div("Tier", style={"font-size": "18px", "font-weight": "bold","font-size":"20px",
+                                                 html.Div("Tier", style={"font-size": "18px", "font-weight": "bold",
+                                                                         "font-size": "20px",
                                                                          "flex": "1", "color": "#9c9ea0",
                                                                          "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif"}),
                                                  html.Div("Sales Volume",
-                                                          style={"font-size": "18px", "font-weight": "bold","font-size":"20px",
+                                                          style={"font-size": "18px", "font-weight": "bold",
+                                                                 "font-size": "20px",
                                                                  "flex": "1", "color": "#9c9ea0",
                                                                  "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif"}),
                                                  html.Div("Total", style={"font-size": "18px", "font-weight": "bold",
-                                                                          "flex": "1", "color": "#9c9ea0","font-size":"20px",
+                                                                          "flex": "1", "color": "#9c9ea0",
+                                                                          "font-size": "20px",
                                                                           "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif"})
                                              ],
                                              style={
@@ -741,17 +745,89 @@ class chart_ctn2:
             ]
         )
 
+class chart_ctn3:
+    def chart_left(self, game):
+        return html.Div(
+            children=[],
+            style={
+                "width": "48%",
+                "height": "100px",
+                "background-color": "#fff",
+            }
+        )
+
+    def chart_right(self, game):
+        return html.Div(
+            children=[],
+            style={
+                "width": "48%",
+                "height": "100px",
+                "background-color": "#fff",
+            }
+        )
+
+    def show(self, game):
+        return html.Div(
+            children=[
+                html.Div(
+                    children=[self.chart_left(game),
+                              self.chart_right(game)
+                              ],
+                    style={
+                        "width": "90%",
+                        "display": "flex",
+                        "align-items": "stretch",
+                        "justify-content": "space-between",
+                    }
+                )
+            ],
+            style={
+                "width": "100%",
+                "display": "flex",
+                "align-items": "center",
+                "justify-content": "center",
+            }
+        )
+
+class chart_ctn4:
+    def chart(self,game):
+        return html.Div(
+            children=[],
+            style={
+                "width": "90%",
+                "height": "100px",
+                "background-color": "#fff",
+            }
+        )
+    def show(self,game):
+        return html.Div(
+            className="chart4",
+            children=[
+                        self.chart(game),
+            ],
+            style={
+                "width": "100%",
+                "display": "flex",
+                "align-items": "center",
+                "justify-content": "center",
+                "margin": "20px 0",
+            }
+        )
+
+
 
 def showgame(game_path):
     game = game_path.split('/')[-1]
     return html.Div(
         className=f"{game}_div",
         children=[
-            navbar,
-            graph_nav(game),
-            card(game),
-            chart_ctn1().draw_chart(game),
-            chart_ctn2().ctn(game)
+            navbar.navbarx,
+            navbar.graph_nav(game),
+            navbar.card(game),
+            chart_ctn1().show(game),
+            chart_ctn2().ctn(game),
+            chart_ctn3().show(game),
+            chart_ctn4().show(game)
         ],
         style={
             "background-color": "#f4f3ee",

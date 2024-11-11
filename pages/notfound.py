@@ -8,7 +8,7 @@ back_btn = html.Div(
                 children=[
                     dcc.Link([
                         html.Img(
-                            src="../assets/IMG/back_icon.png",
+                            src="../assets/IMG/others/back_icon.png",
                             alt="Info",
                             className="info-icon",
                             width="24",
