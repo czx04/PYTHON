@@ -4,12 +4,13 @@ import plotly.express as px
 import plotly.graph_objs as go
 from dash import html, dcc
 
-from PYTHON.data import datagame, months, products
+from PYTHON.data import datagame, months, products, session, avgtime
 
 
 # format
 def convert_game_name(gamex):
     return gamex.lower().replace(' ', '')
+
 
 class navbar:
     back_btn = html.Div(
@@ -273,6 +274,7 @@ class navbar:
                     "align-items": "center",
                 }
             ))
+
 
 class chart_ctn1:
     def drchart1(self, gamex):
@@ -601,6 +603,7 @@ class chart_ctn1:
             }
         )
 
+
 class chart_ctn2:
     def ctn(self, game):
         game_data = next((g for g in datagame if g["game"].lower() == game.lower()), None)
@@ -623,7 +626,7 @@ class chart_ctn2:
                 html.Div(
                     className="data-row",
                     children=[
-                        html.Img(src=f"../assets/IMG/products/{product['prd']}.jpg",
+                        html.Img(src=f"../assets/IMG/games/{game}/products/{product['prd']}.jpg",
                                  style={"width": "30px", "flex": "0.5"}, ),
                         html.Div("", style={"flex": "1"}),
                         html.Div(
@@ -745,23 +748,71 @@ class chart_ctn2:
             ]
         )
 
+
 class chart_ctn3:
+    def chart_l(self, game):
+        df = pd.DataFrame(session)
+        df['session'] = df['session'].astype(int)
+        df['cumulative_session'] = df['session']
+        trace = go.Scatter(
+            x=df['day'],
+            y=df['cumulative_session'],
+            mode='lines+markers',
+            line=dict(color='rgba(255, 99, 132, 0.8)', shape='spline'),
+            marker=dict(size=8),
+        )
+
+        layout = go.Layout(
+            title="Biểu Đồ Tăng Trưởng Phiên Chơi Theo Ngày",
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            xaxis=dict(title="Ngày"),
+            yaxis=dict(title="Tổng Phiên Chơi Tích Lũy"),
+            # template='plotly_dark',
+        )
+
+        return dcc.Graph(figure=go.Figure(data=[trace], layout=layout), config={"displayModeBar": False})
+
+    def chart_r(self, game):
+        df = pd.DataFrame(avgtime)
+        df['avg'] = df['avg'].astype(float)
+        trace = go.Scatter(
+            x=df['day'],
+            y=df['avg'],
+            mode='lines+markers',
+            line=dict(color='rgba(255, 99, 132, 0.8)', shape='spline'),
+            marker=dict(size=8),
+        )
+
+        layout = go.Layout(
+            title="Trung bình thời gian chơi theo ngày",
+            paper_bgcolor='rgba(0,0,0,0)',
+            plot_bgcolor='rgba(0,0,0,0)',
+            xaxis=dict(title="Ngày"),
+            yaxis=dict(title="Thời gian chơi trung bình mỗi người chơi"),
+            # template='plotly_dark',
+        )
+
+        return dcc.Graph(figure=go.Figure(data=[trace], layout=layout), config={"displayModeBar": False})
+
     def chart_left(self, game):
         return html.Div(
-            children=[],
+            children=[
+                self.chart_l(game),
+            ],
             style={
                 "width": "48%",
-                "height": "100px",
                 "background-color": "#fff",
             }
         )
 
     def chart_right(self, game):
         return html.Div(
-            children=[],
+            children=[
+                self.chart_r(game),
+            ],
             style={
                 "width": "48%",
-                "height": "100px",
                 "background-color": "#fff",
             }
         )
@@ -789,8 +840,9 @@ class chart_ctn3:
             }
         )
 
+
 class chart_ctn4:
-    def chart(self,game):
+    def chart(self, game):
         return html.Div(
             children=[],
             style={
@@ -799,11 +851,12 @@ class chart_ctn4:
                 "background-color": "#fff",
             }
         )
-    def show(self,game):
+
+    def show(self, game):
         return html.Div(
             className="chart4",
             children=[
-                        self.chart(game),
+                self.chart(game),
             ],
             style={
                 "width": "100%",
@@ -813,7 +866,6 @@ class chart_ctn4:
                 "margin": "20px 0",
             }
         )
-
 
 
 def showgame(game_path):

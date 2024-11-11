@@ -55,7 +55,6 @@ datagame = [
             "North Korea": "1"
         },
         "selling_product": ["Gwen", "Yasuo", "Ahri"]
-
     },
     {
         "game": "game 2",
@@ -510,26 +509,109 @@ datagame = [
         "selling_product": ["Gwen", "Yasuo", "Ahri"]
     }
 ]
+
+# lấy 3 sản phẩm bán chạy nhất
 products = [
     {
         "prd": "Gwen",
         "price": "3500",
         "tier": "S",
-        "sales volume":"3232"
+        "sales volume": "3232"
     },
     {
         "prd": "Yasuo",
         "price": "3500",
-"tier": "A",
-"sales volume":"3232"
+        "tier": "A",
+        "sales volume": "3232"
     },
     {
         "prd": "Ahri",
         "price": "3500",
-"tier": "A",
-"sales volume":"3232"
+        "tier": "A",
+        "sales volume": "3232"
     }
 ]
+
+# lấy 7 ngày gần nhất
+session = [
+    {
+        "day": "04/11/2024",
+        "session": "12344"
+    },
+    {
+        "day": "05/11/2024",
+        "session": "13345"
+    },
+    {
+        "day": "06/11/2024",
+        "session": "12334"
+    },
+    {
+        "day": "07/11/2024",
+        "session": "11134"
+    },
+    {
+        "day": "08/11/2024",
+        "session": "21234"
+    },
+    {
+        "day": "09/11/2024",
+        "session": "31234"
+    },
+    {
+        "day": "10/11/2024",
+        "session": "25234"
+    },
+    {
+        "day": "11/11/2024",
+        "session": "17234"
+    },
+    {
+        "day": "12/11/2024",
+        "session": "11234"
+    },
+]
+
+# lấy 7 ngày gần nhất
+avgtime = [
+    {
+        "day": "04/11/2024",
+        "avg": "1.02312"
+    },
+    {
+        "day": "05/11/2024",
+        "avg": "1.11"
+    },
+    {
+        "day": "06/11/2024",
+        "avg": "0.7011"
+    },
+    {
+        "day": "07/11/2024",
+        "avg": "0.2313"
+    },
+    {
+        "day": "08/11/2024",
+        "avg": "0.4213"
+    },
+    {
+        "day": "09/11/2024",
+        "avg": "0.712"
+    },
+    {
+        "day": "10/11/2024",
+        "avg": "1.01"
+    },
+    {
+        "day": "11/11/2024",
+        "avg": "0.842"
+    },
+    {
+        "day": "12/11/2024",
+        "avg": "0.743"
+    },
+]
+
 months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
 
 # define variable main.py

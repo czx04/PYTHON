@@ -498,7 +498,7 @@ def format_game_path(name):
 
 
 def get_source_img(game):
-    return f"./assets/IMG/games/{format_game_path(game)}.svg"
+    return f"./assets/IMG/games/{format_game_path(game)}/{format_game_path(game)}.svg"
 
 
 def get_platform_images(game_name):
