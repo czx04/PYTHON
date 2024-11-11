@@ -2,16 +2,14 @@
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objs as go
-from altair.examples.pyramid import color
 from dash import html, dcc
 
-from PYTHON.data import datagame, months, products, session, avgtime, retention_data
+from PYTHON.data import datagame, months, products, session, avgtime, retention_data, revenue_data, ad_revenue_data
 
 
 # format
 def convert_game_name(gamex):
     return gamex.lower().replace(' ', '')
-
 
 class navbar:
     back_btn = html.Div(
@@ -275,7 +273,6 @@ class navbar:
                     "align-items": "center",
                 }
             ))
-
 
 class chart_ctn1:
     def drchart1(self, gamex):
@@ -604,9 +601,8 @@ class chart_ctn1:
             }
         )
 
-
 class chart_ctn2:
-    def ctn(self, game):
+    def show(self, game):
         game_data = next((g for g in datagame if g["game"].lower() == game.lower()), None)
         if not game_data:
             return html.Div("Game not found.")
@@ -768,7 +764,7 @@ class chart_ctn3:
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
             xaxis=dict(title="Ngày"),
-            yaxis=dict(title="Tổng Phiên Chơi Tích Lũy",gridcolor='rgba(204, 204, 204, 0.35)'),
+            yaxis=dict(title="Tổng Phiên Chơi Tích Lũy", gridcolor='rgba(204, 204, 204, 0.35)'),
             # template='plotly_dark',
         )
 
@@ -790,7 +786,7 @@ class chart_ctn3:
             paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
             xaxis=dict(title="Ngày"),
-            yaxis=dict(title="Thời gian chơi trung bình mỗi người chơi",gridcolor='rgba(204, 204, 204, 0.35)'),
+            yaxis=dict(title="Thời gian chơi trung bình mỗi người chơi", gridcolor='rgba(204, 204, 204, 0.35)'),
             # template='plotly_dark',
         )
 
@@ -841,7 +837,6 @@ class chart_ctn3:
             }
         )
 
-
 class chart_ctn4:
     def retention_chart(self, game):
         df_retention = pd.DataFrame(retention_data)
@@ -865,7 +860,7 @@ class chart_ctn4:
         xlayout = go.Layout(
             title="Retention Theo Ngày (7 Ngày)",
             xaxis=dict(title="Ngày", tickangle=45),
-            yaxis=dict(title="Số Lượt Quay Lại Chơi",gridcolor='rgba(204, 204, 204, 0.35)'),
+            yaxis=dict(title="Số Lượt Quay Lại Chơi", gridcolor='rgba(204, 204, 204, 0.35)'),
             showlegend=True,
             autosize=True,
             # paper_bgcolor='rgba(0,0,0,0)',
@@ -882,8 +877,8 @@ class chart_ctn4:
                 self.retention_chart(game),
             ],
             style={
+                "padding-top": "30px",
                 "width": "90%",
-                "height": "100px",
                 "background-color": "#fff",
             }
         )
@@ -893,13 +888,177 @@ class chart_ctn4:
             className="chart4",
             children=[
                 self.chart(game),
+                html.Div(
+                    style={
+                        "width": "90%",
+                        "height": "25px",
+                        "background-color": "#fff",
+                    }
+                )
             ],
             style={
                 "width": "100%",
                 "display": "flex",
+                "flex-direction": "column",
                 "align-items": "center",
                 "justify-content": "center",
                 "margin": "20px 0",
+            }
+        )
+
+class chart_ctn5:
+    def revenue_chart(self, game):
+        # Chuyển dữ liệu doanh thu thành DataFrame
+        df_revenue = pd.DataFrame(revenue_data)
+        df_revenue['day'] = pd.to_datetime(df_revenue['day'], format='%d/%m/%Y')
+
+        # Tính tổng doanh thu lũy tích
+        df_revenue['cumulative_revenue'] = df_revenue['revenue'].cumsum()
+
+        # Tạo biểu đồ cho doanh thu lũy tích
+        trace = go.Scatter(
+            x=df_revenue['day'],
+            y=df_revenue['cumulative_revenue'],
+            mode='lines+markers',
+            name="Doanh Thu Lũy Tích",
+            line=dict(shape='spline', color='rgba(0, 123, 255, 0.8)'),
+            marker=dict(size=8),
+        )
+
+        # Layout của biểu đồ
+        layout = go.Layout(
+            title="Tổng Doanh Thu Lũy Tích Theo Ngày",
+            xaxis=dict(title="Ngày", tickangle=45),
+            yaxis=dict(title="Doanh Thu Lũy Tích ($)", gridcolor='rgba(204, 204, 204, 0.35)'),
+            showlegend=True,
+            autosize=True,
+            plot_bgcolor='rgba(0,0,0,0)',
+            margin=dict(l=20, r=20, t=40, b=40),
+            xaxis_rangeslider_visible=False,
+            height=400,
+        )
+
+        # Trả về dcc.Graph cho biểu đồ
+        return dcc.Graph(figure=go.Figure(data=[trace], layout=layout), config={"displayModeBar": False})
+
+    def chart(self, game):
+        return html.Div(
+            children=[
+                html.Div(
+                    style={
+                        "width": "90%",
+                        "height": "10px",
+                        "background-color": "#fff",
+                    }
+                ),
+                self.revenue_chart(game),
+            ],
+            style={
+                "width": "90%",
+                "background-color": "#fff",
+            }
+        )
+
+    def show(self, game):
+        return html.Div(
+            className="chart4",
+            children=[
+                html.Div(
+                    style={
+                        "width": "90%",
+                        "height": "10px",
+                        "background-color": "#fff",
+                    }
+                ),
+                self.chart(game),
+                html.Div(
+                    style={
+                        "width": "90%",
+                        "height": "30px",
+                        "background-color": "#fff",
+                    }
+                )
+            ],
+            style={
+                "width": "100%",
+                "display": "flex",
+                "flex-direction": "column",
+                "align-items": "center",
+                "justify-content": "center",
+                "margin-bottom": "20px",  # Thêm margin-bottom để tạo khoảng cách giữa chart_ctn5 và chart_ctn6
+            }
+        )
+
+class chart_ctn6:
+    def revenue_analysis_chart(self, game):
+        df_ad_revenue = pd.DataFrame(ad_revenue_data)
+        df_ad_revenue['ad_rev_avgk'] = (df_ad_revenue['ad_rev_median'] + df_ad_revenue['ad_rev_avg']) / 2
+        traces = []
+        # Tạo các cột cho ad_rev_median, ad_rev_avg và ad_rev_avg (trung bình)
+        traces.append(go.Bar(
+            x=df_ad_revenue['day'],
+            y=df_ad_revenue['ad_rev_median'],
+            name='Ad Rev Median ($)',
+            marker=dict(color='rgba(255, 99, 132, 0.6789)')
+        ))
+        traces.append(go.Bar(
+            x=df_ad_revenue['day'],
+            y=df_ad_revenue['ad_rev_avgk'],
+            name='Ad Rev Avg ($)',
+            marker=dict(color='rgba(54, 162, 235, 0.6789)')
+        ))
+        traces.append(go.Bar(
+            x=df_ad_revenue['day'],
+            y=df_ad_revenue['ad_rev_avg'],
+            name='Avg Revenue ($)',
+            marker=dict(color='rgba(75, 192, 192, 0.6789)')
+        ))
+
+        layout = go.Layout(
+            title="Doanh Thu Quảng Cáo Theo Ngày",
+            xaxis=dict(title="Ngày", tickangle=45),
+            yaxis=dict(title="Doanh Thu ($)", gridcolor='rgba(204, 204, 204, 0.35)'),
+            barmode='group',
+            plot_bgcolor='rgba(0,0,0,0)',
+            showlegend=False,
+            autosize=True,
+            margin=dict(l=20, r=20, t=40, b=40),
+            height=400,
+        )
+        return dcc.Graph(figure=go.Figure(data=traces, layout=layout), config={"displayModeBar": False})
+
+    def chart(self, game):
+        return html.Div(
+            children=[
+                self.revenue_analysis_chart(game),
+            ],
+            style={
+                "padding-top": "10px",
+                "width": "90%",
+                "background-color": "#fff",
+            }
+        )
+
+    def show(self, game):
+        return html.Div(
+            className="chart",
+            children=[
+                self.chart(game),
+                html.Div(
+                    style={
+                        "padding-top": "20px",
+                        "width": "90%",
+                        "height": "10px",
+                        "background-color": "#fff",
+                    }
+                )
+            ],
+            style={
+                "width": "100%",
+                "display": "flex",
+                "flex-direction": "column",
+                "align-items": "center",
+                "justify-content": "center",
             }
         )
 
@@ -912,13 +1071,15 @@ def showgame(game_path):
             navbar.graph_nav(game),
             navbar.card(game),
             chart_ctn1().show(game),
-            chart_ctn2().ctn(game),
+            chart_ctn2().show(game),
             chart_ctn3().show(game),
-            chart_ctn4().show(game)
+            chart_ctn4().show(game),
+            chart_ctn5().show(game),
+            chart_ctn6().show(game),
         ],
         style={
             "background-color": "#f4f3ee",
             "width": "100%",
-            "height": "3000px",
+            "height": "4000px",
         }
     )

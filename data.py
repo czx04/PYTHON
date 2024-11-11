@@ -54,7 +54,10 @@ datagame = [
             "Russia": "1196",
             "North Korea": "1"
         },
-        "selling_product": ["Gwen", "Yasuo", "Ahri"]
+        "selling_product": ["Gwen", "Yasuo", "Ahri"],
+        "user":"32102",
+        "today_revenue":"12345",
+        "request":"40000",
     },
     {
         "game": "game 2",
@@ -643,6 +646,33 @@ retention_data = [
      "retention_day_5": 110, "retention_day_6": 100, "retention_day_7": 190},
     {"day": "13/11/2024", "retention_day_1": 800, "retention_day_2": 240, "retention_day_3": 120, "retention_day_4": 110,
      "retention_day_5": 100, "retention_day_6": 90, "retention_day_7": 180},
+]
+
+# Dữ liệu doanh thu
+revenue_data = [
+    {"day": "04/11/2024", "revenue": 100},
+    {"day": "05/11/2024", "revenue": 150},
+    {"day": "06/11/2024", "revenue": 120},
+    {"day": "07/11/2024", "revenue": 130},
+    {"day": "08/11/2024", "revenue": 200},
+    {"day": "09/11/2024", "revenue": 180},
+    {"day": "10/11/2024", "revenue": 220},
+    {"day": "11/11/2024", "revenue": 210},
+    {"day": "12/11/2024", "revenue": 250},
+    {"day": "13/11/2024", "revenue": 300},
+]
+
+ad_revenue_data = [
+    {"day": "04/11/2024", "ad_rev_median": 100, "ad_rev_avg": 120},
+    {"day": "05/11/2024", "ad_rev_median": 150, "ad_rev_avg": 170},
+    {"day": "06/11/2024", "ad_rev_median": 130, "ad_rev_avg": 140},
+    {"day": "07/11/2024", "ad_rev_median": 180, "ad_rev_avg": 190},
+    {"day": "08/11/2024", "ad_rev_median": 200, "ad_rev_avg": 220},
+    {"day": "09/11/2024", "ad_rev_median": 210, "ad_rev_avg": 230},
+    {"day": "10/11/2024", "ad_rev_median": 220, "ad_rev_avg": 240},
+    {"day": "11/11/2024", "ad_rev_median": 250, "ad_rev_avg": 270},
+    {"day": "12/11/2024", "ad_rev_median": 260, "ad_rev_avg": 280},
+    {"day": "13/11/2024", "ad_rev_median": 270, "ad_rev_avg": 290},
 ]
 
 months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
