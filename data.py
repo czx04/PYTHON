@@ -1,3 +1,14 @@
+from pymongo import MongoClient
+client = MongoClient(f"mongodb+srv://anhchaiuem:anhchaiuem@pep.ghbx8ax.mongodb.net/?retryWrites=true&w=majority&appName=PEP")
+
+db = client['overview']
+collection = db['overview']
+
+
+def convert_game_name(gamex):
+    return gamex.lower().replace(' ', '')
+
+
 datagame = [
     {
         "game": "Valorant",
@@ -54,13 +65,13 @@ datagame = [
             "Russia": "1196",
             "North Korea": "1"
         },
-        "selling_product": ["Gwen", "Yasuo", "Ahri"],
+        "selling_product": ["Classic", "dao", "Gay"],
         "user":"32102",
         "today_revenue":"12345",
         "request":"40000",
     },
     {
-        "game": "game 2",
+        "game": "Blue Archive",
         "platform": ["android", "windows"],
         "user_up": {
             "JAN": "2700",
@@ -117,7 +128,7 @@ datagame = [
         "selling_product": ["Gwen", "Yasuo", "Ahri"]
     },
     {
-        "game": "game 3",
+        "game": "Clash of Clans",
         "platform": ["android", "ios"],
         "user_up": {
             "JAN": "3623",
@@ -174,7 +185,7 @@ datagame = [
         "selling_product": ["Gwen", "Yasuo", "Ahri"]
     },
     {
-        "game": "game 4",
+        "game": "Genshin Impact",
         "platform": ["macos", "ios"],
         "user_up": {
             "JAN": "3886",
@@ -230,7 +241,7 @@ datagame = [
         "selling_product": ["Gwen", "Yasuo", "Ahri"]
     },
     {
-        "game": "game 5",
+        "game": "Hay Day",
         "platform": ["android", "ios"],
         "user_up": {
             "JAN": "3783",
@@ -285,7 +296,7 @@ datagame = [
     }, "selling_product": ["Gwen", "Yasuo", "Ahri"]
     },
     {
-        "game": "game 6",
+        "game": "Honkai Impact 3",
         "platform": ["android", "ios"],
         "user_up": {
             "JAN": "1055",
@@ -341,7 +352,7 @@ datagame = [
         "selling_product": ["Gwen", "Yasuo", "Ahri"]
     },
     {
-        "game": "game 7",
+        "game": "Honkai Star Rail",
         "platform": ["android", "ios"],
         "user_up": {
             "JAN": "1080",
@@ -398,7 +409,7 @@ datagame = [
         "selling_product": ["Gwen", "Yasuo", "Ahri"]
     },
     {
-        "game": "game 8",
+        "game": "League of Legends",
         "platform": ["android", "ios"],
         "user_up": {
             "JAN": "1860",
@@ -455,7 +466,7 @@ datagame = [
         "selling_product": ["Gwen", "Yasuo", "Ahri"]
     },
     {
-        "game": "game 9",
+        "game": "Zenless Zone Zero",
         "platform": ["android", "ios"],
         "user_up": {
             "JAN": "1360",
@@ -516,7 +527,7 @@ datagame = [
 # lấy 3 sản phẩm bán chạy nhất
 products = [
     {
-        "prd": "Gwen",
+        "prd": "dao",
         "price": "3500",
         "tier": "S",
         "sales volume": "3232"
@@ -574,7 +585,6 @@ session = [
         "session": "11234"
     },
 ]
-
 # lấy 7 ngày gần nhất
 avgtime = [
     {
@@ -677,7 +687,6 @@ ad_revenue_data = [
 
 months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
 
-# define variable main.py
 user_counts = 1500
 total_games = 24
 total_dau = 4080901

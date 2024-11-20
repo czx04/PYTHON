@@ -4,8 +4,7 @@ import plotly.express as px
 import plotly.graph_objs as go
 from dash import html, dcc
 
-from PYTHON.data import datagame, months, products, session, avgtime, retention_data, revenue_data, ad_revenue_data
-
+from PYTHON.data import datagame, months, products, session, avgtime, retention_data, revenue_data, ad_revenue_data, findgame
 
 # format
 def convert_game_name(gamex):
@@ -623,7 +622,7 @@ class chart_ctn2:
                 html.Div(
                     className="data-row",
                     children=[
-                        html.Img(src=f"../assets/IMG/games/{game}/products/{product['prd']}.jpg",
+                        html.Img(src=f"../assets/IMG/games/{game}/products/{product['prd'].lower()}.jpg",
                                  style={"width": "30px", "flex": "0.5"}, ),
                         html.Div("", style={"flex": "1"}),
                         html.Div(

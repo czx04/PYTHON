@@ -498,7 +498,7 @@ def format_game_path(name):
 
 
 def get_source_img(game):
-    return f"./assets/IMG/games/{format_game_path(game)}/{format_game_path(game)}.svg"
+    return f"./assets/IMG/games/{format_game_path(game)}/logo.jpg"
 
 
 def get_platform_images(game_name):
@@ -618,6 +618,7 @@ homepage_layout = html.Div(
         "flex-direction": "column",
         "alignItems": "center",
         "background-color": "#f4f3ee",
+        "padding-bottom": "150px",
     },
     children=[
         navbar,
@@ -633,7 +634,9 @@ app.layout = html.Div(
     [
         dcc.Location(id="url", refresh=False),
         html.Div(id="page-content", children=homepage_layout)
-    ]
+    ],
+    style={
+    }
 )
 
 
