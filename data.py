@@ -1,74 +1,229 @@
 from pymongo import MongoClient
-client = MongoClient(f"mongodb+srv://anhchaiuem:anhchaiuem@pep.ghbx8ax.mongodb.net/?retryWrites=true&w=majority&appName=PEP")
+
+client = MongoClient(
+    f"mongodb+srv://anhchaiuem:anhchaiuem@pep.ghbx8ax.mongodb.net/?retryWrites=true&w=majority&appName=PEP")
 
 db = client['overview']
 collection = db['overview']
 
-
-def convert_game_name(gamex):
-    return gamex.lower().replace(' ', '')
-
+# datagame = [a for a in collection.find()]
 
 datagame = [
     {
         "game": "Valorant",
         "platform": ["android", "ios"],
         "user_up": {
-            "JAN": "2400",
-            "FEB": "3400",
-            "MAR": "2440",
-            "APR": "6400",
-            "MAY": "2400",
-            "JUN": "6400",
-            "JUL": "3400",
-            "AUG": "1240",
-            "SEP": "8400",
-            "OCT": "3400",
-            "NOV": "1400",
-            "DEC": "4400",
+            "JAN": "2000",
+            "FEB": "2500",
+            "MAR": "3000",
+            "APR": "3500",
+            "MAY": "4000",
+            "JUN": "4500",
+            "JUL": "5000",
+            "AUG": "5500",
+            "SEP": "6000",
+            "OCT": "6500",
+            "NOV": "7000",
+            "DEC": "7500"
         },
         "users/country": {
-            'USA': "24360",
-            'VietNam': "12471",
-            'Korea': "2101",
-            'Japan': "1344",
-            'Taiwan': "1483",
-            'Singapore': "1041",
-            'Thailand': "1420",
-            'Laos': "263",
-            'Russia': "1196",
-            'North Korea': "1"
+            "USA": "26000",
+            "VietNam": "21000",
+            "Korea": "17000",
+            "Japan": "15000",
+            "Taiwan": "13000",
+            "Singapore": "11000",
+            "Thailand": "10000",
+            "Laos": "4000",
+            "Russia": "14000",
+            "North Korea": "800"
         },
         "avg_daily_active_user": {
-            "JAN": "2401",
-            "FEB": "3400",
-            "MAR": "2440",
-            "APR": "6400",
-            "MAY": "2400",
-            "JUN": "6400",
-            "JUL": "3400",
-            "AUG": "1240",
-            "SEP": "8400",
-            "OCT": "3400",
-            "NOV": "1400",
-            "DEC": "4400",
+            "JAN": "2200",
+            "FEB": "2700",
+            "MAR": "3200",
+            "APR": "3700",
+            "MAY": "4200",
+            "JUN": "4700",
+            "JUL": "5200",
+            "AUG": "5700",
+            "SEP": "6200",
+            "OCT": "6700",
+            "NOV": "7200",
+            "DEC": "7700"
         },
         "active_user/country": {
-            "USA": "24361",
-            "VietNam": "12471",
-            "Korea": "2101",
-            "Japan": "1344",
-            "Taiwan": "1483",
-            "Singapore": "1041",
-            "Thailand": "1420",
-            "Laos": "263",
-            "Russia": "1196",
-            "North Korea": "1"
+            "USA": "26500",
+            "VietNam": "21500",
+            "Korea": "17500",
+            "Japan": "15500",
+            "Taiwan": "13500",
+            "Singapore": "11500",
+            "Thailand": "10500",
+            "Laos": "4200",
+            "Russia": "14500",
+            "North Korea": "900"
         },
-        "selling_product": ["Classic", "dao", "Gay"],
-        "user":"32102",
-        "today_revenue":"12345",
-        "request":"40000",
+        "selling_product": ["Classic", "gay", "dao"],
+        "products": [
+            {
+                "prd": "dao",
+                "price": "3500",
+                "tier": "S",
+                "sales volume": "3500"
+            },
+            {
+                "prd": "gay",
+                "price": "3500",
+                "tier": "A",
+                "sales volume": "3300"
+            },
+            {
+                "prd": "Classic",
+                "price": "3500",
+                "tier": "A",
+                "sales volume": "3100"
+            }
+        ],
+        "session": [
+            {
+                "day": "04/11/2024",
+                "session": "124"
+            },
+            {
+                "day": "05/11/2024",
+                "session": "13345"
+            },
+            {
+                "day": "06/11/2024",
+                "session": "12334"
+            },
+            {
+                "day": "07/11/2024",
+                "session": "11134"
+            },
+            {
+                "day": "08/11/2024",
+                "session": "21234"
+            },
+            {
+                "day": "09/11/2024",
+                "session": "31234"
+            },
+            {
+                "day": "10/11/2024",
+                "session": "25234"
+            },
+            {
+                "day": "11/11/2024",
+                "session": "17234"
+            },
+            {
+                "day": "12/11/2024",
+                "session": "11234"
+            },
+        ],
+        "avgtime/day": [
+            {
+                "day": "04/11/2024",
+                "avg": "4.02312"
+            },
+            {
+                "day": "05/11/2024",
+                "avg": "1.11"
+            },
+            {
+                "day": "06/11/2024",
+                "avg": "0.7011"
+            },
+            {
+                "day": "07/11/2024",
+                "avg": "0.2313"
+            },
+            {
+                "day": "08/11/2024",
+                "avg": "0.4213"
+            },
+            {
+                "day": "09/11/2024",
+                "avg": "0.712"
+            },
+            {
+                "day": "10/11/2024",
+                "avg": "1.01"
+            },
+            {
+                "day": "11/11/2024",
+                "avg": "0.842"
+            },
+            {
+                "day": "12/11/2024",
+                "avg": "0.743"
+            },
+        ],
+        "retention_data": [
+            {"day": "30/10/2024", "retention_day_1": 1190, "retention_day_2": 280, "retention_day_3": 170,
+             "retention_day_4": 60,
+             "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+            {"day": "31/10/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170,
+             "retention_day_4": 60,
+             "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+            {"day": "01/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170,
+             "retention_day_4": 60,
+             "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+            {"day": "02/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170,
+             "retention_day_4": 60,
+             "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+            {"day": "03/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170,
+             "retention_day_4": 60,
+             "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+            {"day": "04/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170,
+             "retention_day_4": 60,
+             "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+            {"day": "05/11/2024", "retention_day_1": 120, "retention_day_2": 90, "retention_day_3": 75,
+             "retention_day_4": 65,
+             "retention_day_5": 55, "retention_day_6": 45, "retention_day_7": 35},
+            {"day": "06/11/2024", "retention_day_1": 940, "retention_day_2": 310, "retention_day_3": 200,
+             "retention_day_4": 185,
+             "retention_day_5": 175, "retention_day_6": 165, "retention_day_7": 250},
+            {"day": "07/11/2024", "retention_day_1": 920, "retention_day_2": 300, "retention_day_3": 180,
+             "retention_day_4": 170,
+             "retention_day_5": 160, "retention_day_6": 150, "retention_day_7": 240},
+            {"day": "08/11/2024", "retention_day_1": 900, "retention_day_2": 290, "retention_day_3": 170,
+             "retention_day_4": 160,
+             "retention_day_5": 150, "retention_day_6": 140, "retention_day_7": 230},
+            {"day": "09/11/2024", "retention_day_1": 880, "retention_day_2": 280, "retention_day_3": 160,
+             "retention_day_4": 150,
+             "retention_day_5": 140, "retention_day_6": 130, "retention_day_7": 220},
+            {"day": "10/11/2024", "retention_day_1": 860, "retention_day_2": 270, "retention_day_3": 150,
+             "retention_day_4": 140,
+             "retention_day_5": 130, "retention_day_6": 120, "retention_day_7": 210},
+            {"day": "11/11/2024", "retention_day_1": 840, "retention_day_2": 260, "retention_day_3": 140,
+             "retention_day_4": 130,
+             "retention_day_5": 120, "retention_day_6": 110, "retention_day_7": 200},
+            {"day": "12/11/2024", "retention_day_1": 820, "retention_day_2": 250, "retention_day_3": 130,
+             "retention_day_4": 120,
+             "retention_day_5": 110, "retention_day_6": 100, "retention_day_7": 190},
+            {"day": "13/11/2024", "retention_day_1": 800, "retention_day_2": 240, "retention_day_3": 120,
+             "retention_day_4": 110,
+             "retention_day_5": 100, "retention_day_6": 90, "retention_day_7": 180},
+        ],
+        # Dữ liệu doanh thu
+        "revenue_data": [
+            {"day": "04/11/2024", "revenue": 900},
+            {"day": "05/11/2024", "revenue": 150},
+            {"day": "06/11/2024", "revenue": 120},
+            {"day": "07/11/2024", "revenue": 130},
+            {"day": "08/11/2024", "revenue": 200},
+            {"day": "09/11/2024", "revenue": 180},
+            {"day": "10/11/2024", "revenue": 220},
+            {"day": "11/11/2024", "revenue": 210},
+            {"day": "12/11/2024", "revenue": 250},
+            {"day": "13/11/2024", "revenue": 300},
+        ],
+        "user": "32102",
+        "today_revenue": "15000",
+        "request": "50000"
     },
     {
         "game": "Blue Archive",
@@ -282,7 +437,8 @@ datagame = [
             "OCT": "3400",
             "NOV": "1400",
             "DEC": "4400",
-        }, "active_user/country": {
+        },
+        "active_user/country": {
         "USA": "24361",
         "VietNam": "12471",
         "Korea": "2101",
@@ -293,7 +449,167 @@ datagame = [
         "Laos": "263",
         "Russia": "1196",
         "North Korea": "1"
-    }, "selling_product": ["Gwen", "Yasuo", "Ahri"]
+    },
+        "selling_product": ["Classic", "gay", "dao"],
+        "products": [
+            {
+                "prd": "dao",
+                "price": "3500",
+                "tier": "S",
+                "sales volume": "3500"
+            },
+            {
+                "prd": "gay",
+                "price": "3500",
+                "tier": "A",
+                "sales volume": "3300"
+            },
+            {
+                "prd": "Classic",
+                "price": "3500",
+                "tier": "A",
+                "sales volume": "3100"
+            }
+        ],
+        "session": [
+            {
+                "day": "04/11/2024",
+                "session": "124"
+            },
+            {
+                "day": "05/11/2024",
+                "session": "13345"
+            },
+            {
+                "day": "06/11/2024",
+                "session": "12334"
+            },
+            {
+                "day": "07/11/2024",
+                "session": "11134"
+            },
+            {
+                "day": "08/11/2024",
+                "session": "21234"
+            },
+            {
+                "day": "09/11/2024",
+                "session": "31234"
+            },
+            {
+                "day": "10/11/2024",
+                "session": "25234"
+            },
+            {
+                "day": "11/11/2024",
+                "session": "17234"
+            },
+            {
+                "day": "12/11/2024",
+                "session": "11234"
+            },
+        ],
+        "avgtime/day": [
+            {
+                "day": "04/11/2024",
+                "avg": "4.02312"
+            },
+            {
+                "day": "05/11/2024",
+                "avg": "1.11"
+            },
+            {
+                "day": "06/11/2024",
+                "avg": "0.7011"
+            },
+            {
+                "day": "07/11/2024",
+                "avg": "0.2313"
+            },
+            {
+                "day": "08/11/2024",
+                "avg": "0.4213"
+            },
+            {
+                "day": "09/11/2024",
+                "avg": "0.712"
+            },
+            {
+                "day": "10/11/2024",
+                "avg": "1.01"
+            },
+            {
+                "day": "11/11/2024",
+                "avg": "0.842"
+            },
+            {
+                "day": "12/11/2024",
+                "avg": "0.743"
+            },
+        ],
+        "retention_data": [
+            {"day": "30/10/2024", "retention_day_1": 1190, "retention_day_2": 280, "retention_day_3": 170,
+             "retention_day_4": 60,
+             "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+            {"day": "31/10/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170,
+             "retention_day_4": 60,
+             "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+            {"day": "01/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170,
+             "retention_day_4": 60,
+             "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+            {"day": "02/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170,
+             "retention_day_4": 60,
+             "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+            {"day": "03/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170,
+             "retention_day_4": 60,
+             "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+            {"day": "04/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170,
+             "retention_day_4": 60,
+             "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
+            {"day": "05/11/2024", "retention_day_1": 120, "retention_day_2": 90, "retention_day_3": 75,
+             "retention_day_4": 65,
+             "retention_day_5": 55, "retention_day_6": 45, "retention_day_7": 35},
+            {"day": "06/11/2024", "retention_day_1": 940, "retention_day_2": 310, "retention_day_3": 200,
+             "retention_day_4": 185,
+             "retention_day_5": 175, "retention_day_6": 165, "retention_day_7": 250},
+            {"day": "07/11/2024", "retention_day_1": 920, "retention_day_2": 300, "retention_day_3": 180,
+             "retention_day_4": 170,
+             "retention_day_5": 160, "retention_day_6": 150, "retention_day_7": 240},
+            {"day": "08/11/2024", "retention_day_1": 900, "retention_day_2": 290, "retention_day_3": 170,
+             "retention_day_4": 160,
+             "retention_day_5": 150, "retention_day_6": 140, "retention_day_7": 230},
+            {"day": "09/11/2024", "retention_day_1": 880, "retention_day_2": 280, "retention_day_3": 160,
+             "retention_day_4": 150,
+             "retention_day_5": 140, "retention_day_6": 130, "retention_day_7": 220},
+            {"day": "10/11/2024", "retention_day_1": 860, "retention_day_2": 270, "retention_day_3": 150,
+             "retention_day_4": 140,
+             "retention_day_5": 130, "retention_day_6": 120, "retention_day_7": 210},
+            {"day": "11/11/2024", "retention_day_1": 840, "retention_day_2": 260, "retention_day_3": 140,
+             "retention_day_4": 130,
+             "retention_day_5": 120, "retention_day_6": 110, "retention_day_7": 200},
+            {"day": "12/11/2024", "retention_day_1": 820, "retention_day_2": 250, "retention_day_3": 130,
+             "retention_day_4": 120,
+             "retention_day_5": 110, "retention_day_6": 100, "retention_day_7": 190},
+            {"day": "13/11/2024", "retention_day_1": 800, "retention_day_2": 240, "retention_day_3": 120,
+             "retention_day_4": 110,
+             "retention_day_5": 100, "retention_day_6": 90, "retention_day_7": 180},
+        ],
+        # Dữ liệu doanh thu
+        "revenue_data": [
+            {"day": "04/11/2024", "revenue": 900},
+            {"day": "05/11/2024", "revenue": 150},
+            {"day": "06/11/2024", "revenue": 120},
+            {"day": "07/11/2024", "revenue": 130},
+            {"day": "08/11/2024", "revenue": 200},
+            {"day": "09/11/2024", "revenue": 180},
+            {"day": "10/11/2024", "revenue": 220},
+            {"day": "11/11/2024", "revenue": 210},
+            {"day": "12/11/2024", "revenue": 250},
+            {"day": "13/11/2024", "revenue": 300},
+        ],
+        "user": "32102",
+        "today_revenue": "15000",
+        "request": "50000"
     },
     {
         "game": "Honkai Impact 3",
@@ -524,153 +840,6 @@ datagame = [
     }
 ]
 
-# lấy 3 sản phẩm bán chạy nhất
-products = [
-    {
-        "prd": "dao",
-        "price": "3500",
-        "tier": "S",
-        "sales volume": "3232"
-    },
-    {
-        "prd": "Yasuo",
-        "price": "3500",
-        "tier": "A",
-        "sales volume": "3232"
-    },
-    {
-        "prd": "Ahri",
-        "price": "3500",
-        "tier": "A",
-        "sales volume": "3232"
-    }
-]
-
-# lấy 7 ngày gần nhất
-session = [
-    {
-        "day": "04/11/2024",
-        "session": "12344"
-    },
-    {
-        "day": "05/11/2024",
-        "session": "13345"
-    },
-    {
-        "day": "06/11/2024",
-        "session": "12334"
-    },
-    {
-        "day": "07/11/2024",
-        "session": "11134"
-    },
-    {
-        "day": "08/11/2024",
-        "session": "21234"
-    },
-    {
-        "day": "09/11/2024",
-        "session": "31234"
-    },
-    {
-        "day": "10/11/2024",
-        "session": "25234"
-    },
-    {
-        "day": "11/11/2024",
-        "session": "17234"
-    },
-    {
-        "day": "12/11/2024",
-        "session": "11234"
-    },
-]
-# lấy 7 ngày gần nhất
-avgtime = [
-    {
-        "day": "04/11/2024",
-        "avg": "1.02312"
-    },
-    {
-        "day": "05/11/2024",
-        "avg": "1.11"
-    },
-    {
-        "day": "06/11/2024",
-        "avg": "0.7011"
-    },
-    {
-        "day": "07/11/2024",
-        "avg": "0.2313"
-    },
-    {
-        "day": "08/11/2024",
-        "avg": "0.4213"
-    },
-    {
-        "day": "09/11/2024",
-        "avg": "0.712"
-    },
-    {
-        "day": "10/11/2024",
-        "avg": "1.01"
-    },
-    {
-        "day": "11/11/2024",
-        "avg": "0.842"
-    },
-    {
-        "day": "12/11/2024",
-        "avg": "0.743"
-    },
-]
-
-retention_data = [
-{"day": "30/10/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170, "retention_day_4": 60,
-     "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
-{"day": "31/10/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170, "retention_day_4": 60,
-     "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
-{"day": "01/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170, "retention_day_4": 60,
-     "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
-{"day": "02/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170, "retention_day_4": 60,
-     "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
-{"day": "03/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170, "retention_day_4": 60,
-     "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
-    {"day": "04/11/2024", "retention_day_1": 190, "retention_day_2": 280, "retention_day_3": 170, "retention_day_4": 60,
-     "retention_day_5": 350, "retention_day_6": 240, "retention_day_7": 130},
-    {"day": "05/11/2024", "retention_day_1": 120, "retention_day_2": 90, "retention_day_3": 75, "retention_day_4": 65,
-     "retention_day_5": 55, "retention_day_6": 45, "retention_day_7": 35},
-    {"day": "06/11/2024", "retention_day_1": 940, "retention_day_2": 310, "retention_day_3": 200, "retention_day_4": 185,
-     "retention_day_5": 175, "retention_day_6": 165, "retention_day_7": 250},
-    {"day": "07/11/2024", "retention_day_1": 920, "retention_day_2": 300, "retention_day_3": 180, "retention_day_4": 170,
-     "retention_day_5": 160, "retention_day_6": 150, "retention_day_7": 240},
-    {"day": "08/11/2024", "retention_day_1": 900, "retention_day_2": 290, "retention_day_3": 170, "retention_day_4": 160,
-     "retention_day_5": 150, "retention_day_6": 140, "retention_day_7": 230},
-    {"day": "09/11/2024", "retention_day_1": 880, "retention_day_2": 280, "retention_day_3": 160, "retention_day_4": 150,
-     "retention_day_5": 140, "retention_day_6": 130, "retention_day_7": 220},
-    {"day": "10/11/2024", "retention_day_1": 860, "retention_day_2": 270, "retention_day_3": 150, "retention_day_4": 140,
-     "retention_day_5": 130, "retention_day_6": 120, "retention_day_7": 210},
-    {"day": "11/11/2024", "retention_day_1": 840, "retention_day_2": 260, "retention_day_3": 140, "retention_day_4": 130,
-     "retention_day_5": 120, "retention_day_6": 110, "retention_day_7": 200},
-    {"day": "12/11/2024", "retention_day_1": 820, "retention_day_2": 250, "retention_day_3": 130, "retention_day_4": 120,
-     "retention_day_5": 110, "retention_day_6": 100, "retention_day_7": 190},
-    {"day": "13/11/2024", "retention_day_1": 800, "retention_day_2": 240, "retention_day_3": 120, "retention_day_4": 110,
-     "retention_day_5": 100, "retention_day_6": 90, "retention_day_7": 180},
-]
-
-# Dữ liệu doanh thu
-revenue_data = [
-    {"day": "04/11/2024", "revenue": 100},
-    {"day": "05/11/2024", "revenue": 150},
-    {"day": "06/11/2024", "revenue": 120},
-    {"day": "07/11/2024", "revenue": 130},
-    {"day": "08/11/2024", "revenue": 200},
-    {"day": "09/11/2024", "revenue": 180},
-    {"day": "10/11/2024", "revenue": 220},
-    {"day": "11/11/2024", "revenue": 210},
-    {"day": "12/11/2024", "revenue": 250},
-    {"day": "13/11/2024", "revenue": 300},
-]
 
 ad_revenue_data = [
     {"day": "04/11/2024", "ad_rev_median": 100, "ad_rev_avg": 120},

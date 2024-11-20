@@ -1,71 +1,72 @@
 from pymongo import MongoClient
 from bson import ObjectId
 
-# Kết nối đến MongoDB (giả sử MongoDB đang chạy trên localhost và cổng 27017)
 client = MongoClient('mongodb+srv://anhchaiuem:anhchaiuem@pep.ghbx8ax.mongodb.net/?retryWrites=true&w=majority&appName=PEP')
 
-# Chọn database và collection
-db = client['overview']  # Database 'overview'
-collection = db['overview']  # Collection 'overview'
+db = client['overview']
+collection = db['overview']
 
-# Dữ liệu cần insert
 data = {
-        "game": "Clash of Clans",
-        "platform": ["android", "ios"],
-        "user_up": {
-            "JAN": "3623",
-            "FEB": "1071",
-            "MAR": "9731",
-            "APR": "8854",
-            "MAY": "5372",
-            "JUN": "4305",
-            "JUL": "5583",
-            "AUG": "2211",
-            "SEP": "3610",
-            "OCT": "4722",
-            "NOV": "9814",
-            "DEC": "6170",
-        },
-        "users/country": {
-            'USA': "24360",
-            'VietNam': "12471",
-            'Korea': "2101",
-            'Japan': "1344",
-            'Taiwan': "1483",
-            'Singapore': "1041",
-            'Thailand': "1420",
-            'Laos': "263",
-            'Russia': "1196",
-            'North Korea': "1"
-        },
-        "avg_daily_active_user": {
-            "JAN": "2400",
-            "FEB": "3400",
-            "MAR": "2440",
-            "APR": "6400",
-            "MAY": "2400",
-            "JUN": "6400",
-            "JUL": "3400",
-            "AUG": "1240",
-            "SEP": "8400",
-            "OCT": "3400",
-            "NOV": "1400",
-            "DEC": "4400",
-        },
-        "active_user/country": {
-            "USA": "24361",
-            "VietNam": "12471",
-            "Korea": "2101",
-            "Japan": "1344",
-            "Taiwan": "1483",
-            "Singapore": "1041",
-            "Thailand": "1420",
-            "Laos": "263",
-            "Russia": "1196",
-            "North Korea": "1"
-        },
-        "selling_product": ["Gwen", "Yasuo", "Ahri"]
-    }
+    "game": "Honkai Star Rail",
+    "platform": ["android", "ios"],
+    "user_up": {
+        "JAN": "1200",
+        "FEB": "3500",
+        "MAR": "4000",
+        "APR": "4700",
+        "MAY": "5200",
+        "JUN": "5800",
+        "JUL": "6300",
+        "AUG": "6700",
+        "SEP": "7000",
+        "OCT": "7500",
+        "NOV": "7900",
+        "DEC": "8500"
+    },
+    "users/country": {
+        "USA": "27000",
+        "VietNam": "22000",
+        "Korea": "18000",
+        "Japan": "15000",
+        "Taiwan": "13000",
+        "Singapore": "11000",
+        "Thailand": "10000",
+        "Laos": "3500",
+        "Russia": "14000",
+        "North Korea": "800"
+    },
+    "avg_daily_active_user": {
+        "JAN": "2600",
+        "FEB": "3000",
+        "MAR": "3500",
+        "APR": "4000",
+        "MAY": "4500",
+        "JUN": "5000",
+        "JUL": "5500",
+        "AUG": "6000",
+        "SEP": "6500",
+        "OCT": "7000",
+        "NOV": "7500",
+        "DEC": "8000"
+    },
+    "active_user/country": {
+        "USA": "27500",
+        "VietNam": "22500",
+        "Korea": "18500",
+        "Japan": "15500",
+        "Taiwan": "13500",
+        "Singapore": "11500",
+        "Thailand": "10500",
+        "Laos": "3700",
+        "Russia": "14500",
+        "North Korea": "900"
+    },
+    "selling_product": ["Gwen", "Yasuo", "Ahri"]
+}
+
+
+
+
 
 # Insert dữ liệu vào collection
 collection.insert_one(data)

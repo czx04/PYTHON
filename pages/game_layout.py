@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objs as go
 from dash import html, dcc
 
-from PYTHON.data import datagame, months, products, session, avgtime, retention_data, revenue_data, ad_revenue_data, findgame
+from PYTHON.data import datagame, months, ad_revenue_data
 
 # format
 def convert_game_name(gamex):
@@ -334,7 +334,8 @@ class chart_ctn1:
         )
 
     def footer_chart1(self, gamex):
-        game_data = next((game_data for game_data in datagame if game_data["game"].lower() == gamex.lower()), None)
+        game_data = next((game for game in datagame if convert_game_name(game["game"]) == convert_game_name(gamex)),
+                         None)
         if not game_data:
             return html.Div("Game data not found.")
 
@@ -602,13 +603,14 @@ class chart_ctn1:
 
 class chart_ctn2:
     def show(self, game):
-        game_data = next((g for g in datagame if g["game"].lower() == game.lower()), None)
+        # game_data = next((g for g in datagame if g["game"].lower() == game.lower()), None)
+        game_data = next((g for g in datagame if convert_game_name(g["game"]) == convert_game_name(game)), None)
         if not game_data:
             return html.Div("Game not found.")
 
         # Retrieve selling products for the game
         selling_products = game_data.get("selling_product", [])
-
+        products = game_data.get("products", [])
         # Filter the product data based on the selling products
         product_details = [prod for prod in products if prod["prd"] in selling_products]
 
@@ -747,6 +749,12 @@ class chart_ctn2:
 
 class chart_ctn3:
     def chart_l(self, game):
+        game_data = next((g for g in datagame if convert_game_name(g["game"]) == convert_game_name(game)), None)
+        if not game_data:
+            return html.Div("Game not found.")
+        session = game_data.get("session")
+        if not session:
+            return html.Div("Không có dữ liệu phiên chơi cho game này.")
         df = pd.DataFrame(session)
         df['session'] = df['session'].astype(int)
         df['cumulative_session'] = df['session']
@@ -770,6 +778,12 @@ class chart_ctn3:
         return dcc.Graph(figure=go.Figure(data=[trace], layout=layout), config={"displayModeBar": False})
 
     def chart_r(self, game):
+        game_data = next((g for g in datagame if convert_game_name(g["game"]) == convert_game_name(game)), None)
+        if not game_data:
+            return html.Div("Game not found.")
+        avgtime = game_data.get("avgtime/day")
+        if not avgtime:
+            return html.Div("Không có dữ liệu về thời gian chơi cho game này.")
         df = pd.DataFrame(avgtime)
         df['avg'] = df['avg'].astype(float)
         trace = go.Scatter(
@@ -836,8 +850,16 @@ class chart_ctn3:
             }
         )
 
+
 class chart_ctn4:
     def retention_chart(self, game):
+        game_data = next((g for g in datagame if convert_game_name(g["game"]) == game), None)
+        if game_data is None:
+            return html.Div("Game không tồn tại.")
+        retention_data = game_data.get("retention_data")
+        if not retention_data:
+            return html.Div("Không có dữ liệu retention cho game này.")
+
         df_retention = pd.DataFrame(retention_data)
         df_retention['day'] = pd.to_datetime(df_retention['day'], format='%d/%m/%Y')
         df_retention = df_retention.sort_values(by='day', ascending=False)  # Sắp xếp theo ngày giảm dần
@@ -862,7 +884,6 @@ class chart_ctn4:
             yaxis=dict(title="Số Lượt Quay Lại Chơi", gridcolor='rgba(204, 204, 204, 0.35)'),
             showlegend=True,
             autosize=True,
-            # paper_bgcolor='rgba(0,0,0,0)',
             plot_bgcolor='rgba(0,0,0,0)',
             margin=dict(l=20, r=20, t=40, b=40),
             xaxis_rangeslider_visible=False,
@@ -905,9 +926,20 @@ class chart_ctn4:
             }
         )
 
+
 class chart_ctn5:
     def revenue_chart(self, game):
-        # Chuyển dữ liệu doanh thu thành DataFrame
+        # Chuẩn hóa tên game
+        game_normalized = convert_game_name(game)
+        # Tìm game trong datagame
+        game_data = next((g for g in datagame if convert_game_name(g["game"]) == game_normalized), None)
+        if game_data is None:
+            return html.Div("Game không tồn tại.")
+        # Lấy dữ liệu doanh thu
+        revenue_data = game_data.get("revenue_data")
+        if not revenue_data:
+            return html.Div("Không có dữ liệu doanh thu cho game này.")
+
         df_revenue = pd.DataFrame(revenue_data)
         df_revenue['day'] = pd.to_datetime(df_revenue['day'], format='%d/%m/%Y')
 
@@ -960,7 +992,7 @@ class chart_ctn5:
 
     def show(self, game):
         return html.Div(
-            className="chart4",
+            className="chart5",
             children=[
                 html.Div(
                     style={
@@ -984,9 +1016,10 @@ class chart_ctn5:
                 "flex-direction": "column",
                 "align-items": "center",
                 "justify-content": "center",
-                "margin-bottom": "20px",  # Thêm margin-bottom để tạo khoảng cách giữa chart_ctn5 và chart_ctn6
+                "margin-bottom": "20px",
             }
         )
+
 
 class chart_ctn6:
     def revenue_analysis_chart(self, game):
@@ -1060,9 +1093,9 @@ class chart_ctn6:
                 "justify-content": "center",
             }
         )
-
 def showgame(game_path):
     game = game_path.split('/')[-1]
+    game = convert_game_name(game)
     return html.Div(
         className=f"{game}_div",
         children=[
