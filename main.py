@@ -7,6 +7,7 @@ from dash.dependencies import Input, Output
 from PYTHON.pages.game_layout import showgame
 from PYTHON.pages.home import homepage_layout
 from PYTHON.pages.notfound import notfound
+from PYTHON.pages.upload import upload_layout, register_callbacks
 
 # Khởi tạo ứng dụng Dash
 app = dash.Dash(__name__)
@@ -31,9 +32,10 @@ def display_page(pathname):
         return homepage_layout
     elif pathname.startswith("/games"):
         return showgame(pathname)
+    elif pathname == "/upload":
+        return upload_layout()
     else:
         return notfound(pathname)
-
 
 if __name__ == '__main__':
     app.run_server(debug=True, port=3040)
