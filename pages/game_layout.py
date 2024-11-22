@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objs as go
 from dash import html, dcc
 
-from PYTHON.data import datagame, months
+from PYTHON.data.data import datagame, months
 
 # format
 def convert_game_name(gamex):

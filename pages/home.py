@@ -1,8 +1,6 @@
-import dash
 import plotly.graph_objs as go
 from dash import dcc, html
-from PYTHON.data import datagame, user_counts, total_games, total_dau, average_playtime
-from dash.dependencies import Input, Output
+from PYTHON.data.data import datagame, user_counts, total_games, total_dau, average_playtime
 
 navbar = html.Div(
     className="navbar",

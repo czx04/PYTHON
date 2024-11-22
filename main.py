@@ -3,7 +3,6 @@ import plotly.graph_objs as go
 from dash import dcc, html
 from dash.dependencies import Input, Output
 
-from PYTHON.data import datagame, user_counts, total_games, total_dau, average_playtime
 # import pages
 from PYTHON.pages.game_layout import showgame
 from PYTHON.pages.home import homepage_layout
