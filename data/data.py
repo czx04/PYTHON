@@ -4,7 +4,7 @@ client = MongoClient(
     f"mongodb+srv://anhchaiuem:anhchaiuem@pep.ghbx8ax.mongodb.net/?retryWrites=true&w=majority&appName=PEP")
 
 db = client['overview']
-collection = db['overview']
+collection = db['test']
 
 
 datagame = [a for a in collection.find()]
