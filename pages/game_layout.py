@@ -4,7 +4,7 @@ import plotly.express as px
 import plotly.graph_objs as go
 from dash import html, dcc
 
-from PYTHON.data import datagame, months, ad_revenue_data
+from PYTHON.data import datagame, months
 
 # format
 def convert_game_name(gamex):
@@ -91,6 +91,8 @@ class navbar:
     def card(gamex):
         game_data = next((game for game in datagame if game["game"].lower().replace(" ", "") == gamex), None)
         total_users = sum(int(game_data["user_up"][month]) for month in months)
+        req = game_data.get("request")
+        today_revenue = game_data.get("today_revenue")
         return (
             html.Div(
                 className="card",
@@ -111,7 +113,7 @@ class navbar:
                                         width="48px",
                                     ),
                                     html.H3(
-                                        f"{total_users:,}",
+                                        f"{total_users//40:,}",
                                         style={
                                             "font-size": "24px",
                                             "margin": "10px 0px",
@@ -148,7 +150,7 @@ class navbar:
                                         width="48px",
                                     ),
                                     html.H3(
-                                        f"$ {total_users}",
+                                        f"$ {today_revenue}",
                                         style={
                                             "font-size": "24px",
                                             "margin": "10px 0px",
@@ -222,7 +224,7 @@ class navbar:
                                         width="48px",
                                     ),
                                     html.H3(
-                                        f"{total_users}",
+                                        f"{req}",
                                         style={
                                             "font-size": "24px",
                                             "margin": "10px 0px",
@@ -677,7 +679,7 @@ class chart_ctn2:
         total_row = html.Div(
             className="total-row",
             children=[
-                html.Div(f"Total:   €{total_sum:,}",
+                html.Div(f"Total:   ${total_sum:,}",
                          style={"flex": "0.912", "font-weight": "bold", "text-align": "right",
                                 "font-family": "Montserrat, Helvetica Neue, Arial, sans-serif", "font-size": "20px"}),
             ],
@@ -1023,6 +1025,12 @@ class chart_ctn5:
 
 class chart_ctn6:
     def revenue_analysis_chart(self, game):
+        game_normalized = convert_game_name(game)
+        game_data = next((g for g in datagame if convert_game_name(g["game"]) == game_normalized), None)
+        if game_data is None:
+            return html.Div("Game không tồn tại.")
+        # Lấy dữ liệu doanh thu
+        ad_revenue_data = game_data.get("ad_revenue_data")
         df_ad_revenue = pd.DataFrame(ad_revenue_data)
         df_ad_revenue['ad_rev_avgk'] = (df_ad_revenue['ad_rev_median'] + df_ad_revenue['ad_rev_avg']) / 2
         traces = []
