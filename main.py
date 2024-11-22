@@ -13,8 +13,6 @@ from PYTHON.pages.notfound import notfound
 app = dash.Dash(__name__)
 app.title = "Dash Multi-Page App"
 
-# UI
-
 app.layout = html.Div(
     [
         dcc.Location(id="url", refresh=False),

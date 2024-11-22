@@ -54,8 +54,6 @@ from1 = html.Div(
     }
 )
 
-#########################################################################################################
-# total overview
 overViewtotal = html.Div(
     className="overview-total",
     children=[

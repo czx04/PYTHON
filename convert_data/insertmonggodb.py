@@ -408,9 +408,6 @@ data = {
 
 
 
-
-
-
 # Insert dữ liệu vào collection
 collection.insert_one(data)
 

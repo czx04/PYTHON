@@ -610,13 +610,10 @@ class chart_ctn2:
         if not game_data:
             return html.Div("Game not found.")
 
-        # Retrieve selling products for the game
         selling_products = game_data.get("selling_product", [])
         products = game_data.get("products", [])
-        # Filter the product data based on the selling products
         product_details = [prod for prod in products if prod["prd"] in selling_products]
 
-        # Create table rows for the selling products
         table_rows = []
         for product in product_details:
             price = int(product["price"])
@@ -1034,7 +1031,6 @@ class chart_ctn6:
         df_ad_revenue = pd.DataFrame(ad_revenue_data)
         df_ad_revenue['ad_rev_avgk'] = (df_ad_revenue['ad_rev_median'] + df_ad_revenue['ad_rev_avg']) / 2
         traces = []
-        # Tạo các cột cho ad_rev_median, ad_rev_avg và ad_rev_avg (trung bình)
         traces.append(go.Bar(
             x=df_ad_revenue['day'],
             y=df_ad_revenue['ad_rev_median'],
