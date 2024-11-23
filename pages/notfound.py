@@ -24,7 +24,7 @@ def notfound(game):
         className=f"{game}_div",
         children=[
             back_btn,
-            html.H1(f"Đéo có gì ở đây", style={"textAlign": "center"}),
+            html.H1(f"K có gì ở đây", style={"textAlign": "center"}),
         ],
         style={
         }

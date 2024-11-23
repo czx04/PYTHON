@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output
 from PYTHON.pages.game_layout import showgame
 from PYTHON.pages.home import homepage_layout
 from PYTHON.pages.notfound import notfound
-from PYTHON.pages.upload import upload_layout, register_callbacks
+from PYTHON.pages.upload import upload_layout
 
 # Khởi tạo ứng dụng Dash
 app = dash.Dash(__name__)
